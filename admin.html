@@ -138,6 +138,15 @@
   .ops-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
   .ops-title{font-size:18px;font-weight:900;letter-spacing:-.02em}
   .ops-sub{font-size:12px;font-weight:700;color:var(--ink-3);margin-top:4px}
+  .ops-head-r{display:flex;align-items:center;gap:10px}
+  .order-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;
+    font-weight:800;color:var(--accent-ink);background:var(--accent);border:1px solid var(--accent);
+    border-radius:999px;padding:9px 15px;cursor:pointer;transition:transform .1s,filter .15s}
+  .order-btn:hover{filter:brightness(1.06)}
+  .order-btn:active{transform:translateY(1px)}
+  .order-btn .oi{font-size:14px}
+  .order-btn .ext{font-weight:900;opacity:.6}
+  @media (max-width:520px){.order-btn .ext{display:none}}
   .chip-live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;
     color:var(--accent);background:rgba(198,255,46,.12);padding:5px 11px;border-radius:999px}
   .chip-live .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.3s infinite}
@@ -216,8 +225,8 @@
 <!-- Lock screen -->
 <div class="lock" id="lock">
   <div class="wm">CREW<b>VOICE</b> · ADMIN</div>
-  <div class="cap">관리자 접근키를 입력하세요</div>
-  <input id="key" type="password" inputmode="text" placeholder="• • • • • •" autocomplete="off" />
+  <div class="cap">관리자 접근키 4자리를 입력하세요</div>
+  <input id="key" type="password" inputmode="numeric" maxlength="4" placeholder="• • • •" autocomplete="off" />
   <button id="enter">입장</button>
   <div class="err" id="err"></div>
 </div>
@@ -270,7 +279,10 @@
         <div class="ops-title">스낵바 운영 대시보드</div>
         <div class="ops-sub" id="ops-updated">실시간 업데이트</div>
       </div>
-      <span class="chip-live"><span class="pulse"></span>LIVE</span>
+      <div class="ops-head-r">
+        <button class="order-btn" id="order-btn"><span class="oi">📋</span>발주 시트 바로가기<span class="ext">↗</span></button>
+        <span class="chip-live"><span class="pulse"></span>LIVE</span>
+      </div>
     </div>
 
     <!-- KPI -->
@@ -523,6 +535,13 @@
     document.getElementById('view-voice').classList.toggle('show',v==='voice');
     document.getElementById('view-ops').classList.toggle('show',v==='ops');
     if(v==='ops')opsRender();
+  });
+
+  /* ── 발주 시트 바로가기 ── */
+  var ORDER_URL=(window.SG_ORDER_SHEET_URL||"").trim();
+  document.getElementById('order-btn').addEventListener('click',function(){
+    if(ORDER_URL){ window.open(ORDER_URL,'_blank','noopener'); }
+    else { alert('발주 시트 주소가 아직 설정되지 않았어요.\nconfig.js 의 SG_ORDER_SHEET_URL 에 구글 시트 주소를 넣어주세요.'); }
   });
 
   /* ── 운영 대시보드 렌더 ── */
