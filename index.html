@@ -175,6 +175,25 @@
   .foot{text-align:center;font-size:11px;color:var(--ink-3);margin-top:14px;font-weight:600;
     letter-spacing:.02em}
   .foot b{color:var(--ink-2)}
+  .foot a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line)}
+  .foot a:hover{color:var(--accent)}
+
+  /* photo upload */
+  .opt{font-size:11px;font-weight:800;color:var(--ink-3);background:var(--panel-2);
+    border:1px solid var(--line);border-radius:999px;padding:2px 8px;margin-left:2px}
+  .drop{display:flex;align-items:center;gap:12px;background:var(--panel-2);border:1px dashed var(--line);
+    border-radius:var(--r);padding:14px;cursor:pointer;transition:border-color .16s,background .16s}
+  .drop:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+  .drop .dico{font-size:20px}
+  .dtxt{display:flex;flex-direction:column;font-size:14px;font-weight:700;color:var(--ink)}
+  .dsub{font-size:11.5px;font-weight:600;color:var(--ink-3);margin-top:2px}
+  .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+  .thumbs:empty{display:none}
+  .thumb{position:relative;width:64px;height:64px;border-radius:10px;overflow:hidden;
+    border:1px solid var(--line);animation:pop .3s ease both}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .rm{position:absolute;top:3px;right:3px;width:18px;height:18px;border:none;border-radius:50%;
+    background:rgba(10,10,11,.8);color:#fff;font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center}
 
   /* ── Success ── */
   .done{position:fixed;inset:0;z-index:30;background:rgba(10,10,11,.86);
@@ -185,12 +204,20 @@
     border-radius:var(--r-xl);box-shadow:var(--shadow);padding:30px 24px 24px;text-align:center;
     animation:pop .45s cubic-bezier(.2,1.3,.35,1) both}
   @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-  .check{width:80px;height:80px;border-radius:50%;background:var(--accent);margin:0 auto 20px;
-    display:grid;place-items:center;box-shadow:0 8px 26px rgba(198,255,46,.35)}
-  .check svg{width:40px;height:40px}
-  .check path{stroke:var(--accent-ink);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;
-    fill:none;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .45s .18s ease forwards}
+  .vbubble{width:104px;height:104px;margin:2px auto 20px;display:grid;place-items:center;
+    filter:drop-shadow(0 12px 24px rgba(0,0,0,.5))}
+  .vbubble .bub{width:100%;height:100%;transform-origin:50% 92%;
+    animation:boing 1.5s cubic-bezier(.28,.9,.42,1) infinite}
+  .vbubble .ck{fill:none;stroke:#191919;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .3s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes boing{
+    0%{transform:translateY(0) scale(1,1)}
+    22%{transform:translateY(-15px) scale(.95,1.06)}
+    46%{transform:translateY(0) scale(1.06,.94)}
+    64%{transform:translateY(-7px) scale(.99,1.01)}
+    82%{transform:translateY(0) scale(1.03,.97)}
+    100%{transform:translateY(0) scale(1,1)}}
   .sheet h2{margin:0 0 6px;font-size:23px;font-weight:800;letter-spacing:-.02em}
   .sheet .p{margin:0 0 20px;color:var(--ink-2);font-size:14px;font-weight:600}
   .ticket{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);
@@ -272,11 +299,21 @@
       <div class="card" id="c3">
         <div class="qtitle"><span class="n">3</span>내용<span class="req">*</span></div>
         <textarea id="msg" maxlength="300" placeholder="예) 바나나 우유 재고가 소진됐어요. 보충 부탁드립니다!"></textarea>
-        <div class="hint"><span>사진은 접수 후 카카오톡으로 이어서 보낼 수 있어요</span>
+        <div class="hint"><span>구체적으로 적어주실수록 빠르게 조치돼요</span>
           <span class="count num"><b id="cnt">0</b> / 300</span></div>
       </div>
 
-      <button class="submit" id="btn" type="submit" disabled><span class="sh"></span>보이스 접수하기</button>
+      <div class="card" id="c4">
+        <div class="qtitle"><span class="n">4</span>사진<span class="opt">선택</span></div>
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept="image/*" capture="environment" multiple hidden />
+          <span class="dico">📷</span>
+          <span class="dtxt">사진 촬영 / 첨부<span class="dsub">최대 3장 · 드라이브에 자동 저장</span></span>
+        </label>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+
+      <button class="submit" id="btn" type="submit" disabled><span class="sh"></span><span id="btnt">보이스 접수하기</span></button>
       <div class="foot"><b>Linkagelab</b> Snack &amp; Garden · 실시간 대응 시스템 데모</div>
     </form>
   </section>
@@ -285,7 +322,12 @@
 <!-- Success -->
 <div class="done" id="done">
   <div class="sheet">
-    <div class="check"><svg viewBox="0 0 60 60"><path d="M16 31 L26 41 L45 20"/></svg></div>
+    <div class="vbubble">
+      <svg class="bub" viewBox="0 0 120 108" aria-hidden="true">
+        <path d="M60 6 C26 6 8 25 8 48 C8 64 18 78 35 85 C33 94 28 100 21 104 C35 103 49 98 58 89 C58.7 89 59.3 89 60 89 C94 89 112 69 112 48 C112 25 94 6 60 6 Z" fill="#ffffff"/>
+        <path class="ck" d="M44 49 L55 60 L77 37"/>
+      </svg>
+    </div>
     <h2>접수 완료!</h2>
     <p class="p">총무 담당자에게 실시간으로 전달됐어요</p>
     <div class="ticket">
@@ -299,7 +341,11 @@
   </div>
 </div>
 
+<script src="config.js"></script>
 <script>
+  // 백엔드(Apps Script 웹앱) 주소. config.js 의 window.SG_ENDPOINT 로 주입. 없으면 데모 모드.
+  var ENDPOINT=(window.SG_ENDPOINT||"").trim();
+
   var cat="";
   var chips=document.getElementById('chips'),c1=document.getElementById('c1');
   chips.addEventListener('click',function(e){
@@ -317,18 +363,80 @@
   var msg=document.getElementById('msg'),cnt=document.getElementById('cnt'),c3=document.getElementById('c3');
   msg.addEventListener('input',function(){cnt.textContent=msg.value.length;
     c3.classList.toggle('act',!!msg.value.trim());check()});
-  var btn=document.getElementById('btn');
+  var btn=document.getElementById('btn'),btnt=document.getElementById('btnt');
   function check(){btn.disabled=!(cat&&loc.value.trim()&&msg.value.trim())}
 
+  /* ── 사진: 다운스케일 후 base64 보관 (최대 3장) ── */
+  var photos=[]; // {name, dataUrl}
+  var fileInput=document.getElementById('file'),thumbs=document.getElementById('thumbs'),c4=document.getElementById('c4');
+  fileInput.addEventListener('change',function(){
+    var files=[].slice.call(fileInput.files);
+    files.forEach(function(f){
+      if(photos.length>=3||!/^image\//.test(f.type))return;
+      var reader=new FileReader();
+      reader.onload=function(ev){ downscale(ev.target.result,function(url){
+        if(photos.length>=3)return;
+        photos.push({name:f.name||'photo.jpg',dataUrl:url}); renderThumbs();
+      });};
+      reader.readAsDataURL(f);
+    });
+    fileInput.value="";
+  });
+  function downscale(dataUrl,cb){
+    var img=new Image();
+    img.onload=function(){
+      var max=1280,w=img.width,h=img.height;
+      if(w>max||h>max){ if(w>h){h=Math.round(h*max/w);w=max;}else{w=Math.round(w*max/h);h=max;} }
+      var cv=document.createElement('canvas');cv.width=w;cv.height=h;
+      cv.getContext('2d').drawImage(img,0,0,w,h);
+      cb(cv.toDataURL('image/jpeg',0.82));
+    };
+    img.onerror=function(){cb(dataUrl)};
+    img.src=dataUrl;
+  }
+  function renderThumbs(){
+    thumbs.innerHTML="";
+    photos.forEach(function(p,i){
+      var d=document.createElement('div');d.className='thumb';
+      d.innerHTML='<img src="'+p.dataUrl+'" alt=""><button type="button" class="rm" data-i="'+i+'">×</button>';
+      thumbs.appendChild(d);
+    });
+    c4.classList.toggle('act',photos.length>0);
+  }
+  thumbs.addEventListener('click',function(e){
+    var b=e.target.closest('.rm'); if(!b)return;
+    photos.splice(+b.dataset.i,1); renderThumbs();
+  });
+
+  /* ── 제출 ── */
+  var busy=false;
   document.getElementById('f').addEventListener('submit',function(e){
-    e.preventDefault();
+    e.preventDefault(); if(busy)return;
     var now=new Date(),pad=function(n){return(n<10?'0':'')+n};
     var no='SG-'+pad(now.getMonth()+1)+pad(now.getDate())+'-'+(Math.floor(Math.random()*900)+100);
-    document.getElementById('tno').textContent=no;
-    document.getElementById('tcat').textContent=cat;
-    document.getElementById('tloc').textContent=loc.value.trim();
-    document.getElementById('ttime').textContent=pad(now.getHours())+':'+pad(now.getMinutes());
-    document.getElementById('done').classList.add('show');
+    var payload={ ticket:no, category:cat, location:loc.value.trim(),
+      message:msg.value.trim(), photos:photos.map(function(p){return p.dataUrl}) };
+
+    busy=true; btn.disabled=true; btnt.textContent='접수 중…';
+
+    var finish=function(ok){
+      busy=false;
+      document.getElementById('tno').textContent=no;
+      document.getElementById('tcat').textContent=cat;
+      document.getElementById('tloc').textContent=loc.value.trim();
+      document.getElementById('ttime').textContent=pad(now.getHours())+':'+pad(now.getMinutes());
+      document.getElementById('done').classList.add('show');
+    };
+
+    if(!ENDPOINT){ setTimeout(function(){finish(true)},450); return; } // 데모 모드
+
+    fetch(ENDPOINT,{ method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload) })
+      .then(function(r){return r.json().catch(function(){return {ok:true}})})
+      .then(function(){finish(true)})
+      .catch(function(){ // 네트워크 실패해도 사용자 경험은 완료 처리(데모), 콘솔에 로그
+        console.error('전송 실패'); finish(false);
+      });
   });
 </script>
 </body>
