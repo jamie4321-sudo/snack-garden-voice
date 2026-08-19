@@ -118,6 +118,74 @@
   .demo{display:inline-block;font-size:11px;font-weight:800;color:var(--amber);
     background:rgba(240,180,41,.12);padding:3px 9px;border-radius:999px;margin-left:6px}
 
+  /* ── Nav ── */
+  .nav{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line-soft);padding-bottom:2px}
+  .navbtn{position:relative;display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);
+    font-size:14px;font-weight:800;color:var(--ink-3);background:none;border:none;cursor:pointer;
+    padding:10px 4px 14px;transition:color .15s}
+  .navbtn .ni{font-size:15px}
+  .navbtn:hover{color:var(--ink-2)}
+  .navbtn.on{color:var(--ink)}
+  .navbtn.on::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2.5px;
+    background:var(--accent);border-radius:2px;animation:navin .3s ease}
+  @keyframes navin{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .navbtn+.navbtn{margin-left:8px}
+  .view{display:none;animation:viewin .35s ease both}
+  .view.show{display:block}
+  @keyframes viewin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ── Ops dashboard ── */
+  .ops-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+  .ops-title{font-size:18px;font-weight:900;letter-spacing:-.02em}
+  .ops-sub{font-size:12px;font-weight:700;color:var(--ink-3);margin-top:4px}
+  .chip-live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;
+    color:var(--accent);background:rgba(198,255,46,.12);padding:5px 11px;border-radius:999px}
+  .chip-live .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.3s infinite}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  @media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 17px}
+  .kpi.accent{background:linear-gradient(160deg,rgba(198,255,46,.14),var(--card) 60%);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+  .kpi .k{font-size:12px;font-weight:800;color:var(--ink-3)}
+  .kpi .v{font-family:var(--display);font-size:30px;line-height:1;margin:10px 0 8px;letter-spacing:.01em}
+  .kpi.accent .v{color:var(--accent)}
+  .kpi .v .u{font-family:var(--sans);font-size:14px;font-weight:800;color:var(--ink-3);margin-left:3px}
+  .kpi .d{font-size:11.5px;font-weight:700;color:var(--ink-3)}
+  .kpi .d.up{color:var(--green)} .kpi .d.warn{color:var(--amber)}
+
+  .ops-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+  @media (max-width:760px){.ops-grid{grid-template-columns:1fr}}
+  .panel,.panel-lg{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
+  .ph{font-size:13px;font-weight:900;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+  .ph-note{font-size:11.5px;font-weight:700;color:var(--ink-3)}
+  .bar{height:14px;background:var(--panel-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .bar span{display:block;height:100%;background:linear-gradient(90deg,#a6e024,var(--accent));border-radius:999px;
+    animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes grow{from{width:0!important}}
+  .bar-legend{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--ink-2);margin-top:9px}
+  .chart{display:flex;align-items:flex-end;gap:10px;height:120px;padding-top:6px}
+  .chart .col{flex:1;background:var(--panel-2);border:1px solid var(--line);border-bottom:none;
+    border-radius:7px 7px 0 0;position:relative;animation:col .7s cubic-bezier(.2,.8,.2,1) both}
+  .chart .col.hi{background:linear-gradient(180deg,var(--accent),#9cd11f)}
+  @keyframes col{from{height:0!important}}
+  .chart-x{display:flex;gap:10px;margin-top:8px}
+  .chart-x span{flex:1;text-align:center;font-size:10.5px;font-weight:700;color:var(--ink-3)}
+  .inv{display:flex;flex-direction:column;gap:2px}
+  .inv-row{display:flex;align-items:center;gap:10px;padding:10px 0}
+  .inv-row+.inv-row{border-top:1px solid var(--line-soft)}
+  .inv-row .dot{width:9px;height:9px;border-radius:50%}
+  .dot.ok{background:var(--green)} .dot.warn{background:var(--amber)} .dot.new{background:var(--accent)}
+  .inv-k{flex:1;font-size:13.5px;font-weight:700;color:var(--ink-2)}
+  .inv-v{font-family:var(--display);font-size:20px}
+  .iss{display:flex;flex-direction:column;gap:8px}
+  .iss-row{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--ink-2);
+    background:var(--panel-2);border:1px solid var(--line-soft);border-radius:10px;padding:9px 11px}
+  .iss-row .num{color:var(--accent);font-weight:800}
+  .tag{font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:999px}
+  .tag.wip{background:rgba(240,180,41,.14);color:var(--amber)}
+  .tag.new{background:rgba(198,255,46,.14);color:var(--accent)}
+  .tag.don{background:rgba(74,222,128,.14);color:var(--green)}
+
   /* ── 새 보이스 알림 토스트 ── */
   .toasts{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;flex-direction:column;
     gap:10px;align-items:flex-end;pointer-events:none}
@@ -167,6 +235,12 @@
     </div>
   </header>
 
+  <nav class="nav" id="nav">
+    <button class="navbtn on" data-v="voice"><span class="ni">💬</span>크루 보이스</button>
+    <button class="navbtn" data-v="ops"><span class="ni">📊</span>운영 대시보드</button>
+  </nav>
+
+  <div class="view show" id="view-voice">
   <div class="stats">
     <div class="stat"><div class="k">전체 접수</div><div class="v num" id="s-all">0</div></div>
     <div class="stat a"><div class="k">접수</div><div class="v num" id="s-0">0</div></div>
@@ -187,7 +261,73 @@
   <div class="board" id="board"></div>
   <div class="empty" id="empty" style="display:none">아직 접수된 보이스가 없어요.</div>
   <div class="foot" id="foot">—</div>
-</div>
+  </div><!-- /view-voice -->
+
+  <!-- ═══════ 운영 대시보드 (데모) ═══════ -->
+  <div class="view" id="view-ops">
+    <div class="ops-head">
+      <div>
+        <div class="ops-title">스낵바 운영 대시보드</div>
+        <div class="ops-sub" id="ops-updated">실시간 업데이트</div>
+      </div>
+      <span class="chip-live"><span class="pulse"></span>LIVE</span>
+    </div>
+
+    <!-- KPI -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="k">이번 달 매입</div>
+        <div class="v num">66,129,237<span class="u">원</span></div>
+        <div class="d up">전월 대비 ▲ 8.2%</div>
+      </div>
+      <div class="kpi">
+        <div class="k">이번 달 접수</div>
+        <div class="v num" id="kpi-voice">—<span class="u">건</span></div>
+        <div class="d" id="kpi-voice-d">크루 보이스</div>
+      </div>
+      <div class="kpi">
+        <div class="k">미조치 이슈</div>
+        <div class="v num" id="kpi-open">—<span class="u">건</span></div>
+        <div class="d warn">확인중 · 접수 대기</div>
+      </div>
+      <div class="kpi accent">
+        <div class="k">예산 사용률</div>
+        <div class="v num">72<span class="u">%</span></div>
+        <div class="d">잔여 18,516,186원</div>
+      </div>
+    </div>
+
+    <div class="ops-grid">
+      <!-- 예산 -->
+      <div class="panel-lg">
+        <div class="ph">월 예산 사용 현황 <span class="ph-note num">2026 · 8월</span></div>
+        <div class="bar"><span style="width:72%"></span></div>
+        <div class="bar-legend"><span>사용 47,613,051원</span><span class="num">72%</span></div>
+        <div class="mini">
+          <div class="ph" style="margin-top:18px">최근 6개월 매입 추이</div>
+          <div class="chart" id="chart"></div>
+          <div class="chart-x"><span>3월</span><span>4월</span><span>5월</span><span>6월</span><span>7월</span><span>8월</span></div>
+        </div>
+      </div>
+
+      <!-- 재고 -->
+      <div class="panel">
+        <div class="ph">재고 상태</div>
+        <div class="inv">
+          <div class="inv-row"><span class="dot ok"></span><span class="inv-k">정상 재고</span><span class="inv-v num">148</span></div>
+          <div class="inv-row"><span class="dot warn"></span><span class="inv-k">부족 재고</span><span class="inv-v num">12</span></div>
+          <div class="inv-row"><span class="dot new"></span><span class="inv-k">발주 진행중</span><span class="inv-v num">7</span></div>
+        </div>
+        <div class="ph" style="margin-top:20px">설비 이슈</div>
+        <div class="iss">
+          <div class="iss-row"><span class="tag wip">확인중</span><span class="num">14F</span> 냉장고 온도 이상</div>
+          <div class="iss-row"><span class="tag new">접수</span><span class="num">10F</span> 자판기 결제 오류</div>
+          <div class="iss-row"><span class="tag don">완료</span><span class="num">11F</span> 정수기 필터 교체</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">데모 운영 대시보드 · 실제 데이터 연동 시 매입·재고·예산·설비 이슈가 실시간 반영됩니다 <span class="demo">DEMO</span></div>
+  </div><!-- /view-ops -->
 
 <div class="toasts" id="toasts"></div>
 
@@ -372,6 +512,43 @@
     {row:0,time:'2026-07-28 14:40',ticket:'SG-0728-118',category:'기타 의견',location:'15F',message:'커피 캡슐 종류가 다양해서 좋아요. 감사합니다!',photos:[],status:'조치완료',memo:''},
     {row:0,time:'2026-07-15 08:55',ticket:'SG-0715-092',category:'품절·재고',location:'12F',message:'생수 재고가 자주 떨어져요. 발주량을 늘려주세요.',photos:[],status:'조치완료',memo:''}
   ];
+
+  /* ── 뷰 전환 (크루 보이스 / 운영 대시보드) ── */
+  var nav=document.getElementById('nav');
+  nav.addEventListener('click',function(e){
+    var b=e.target.closest('.navbtn'); if(!b)return;
+    [].forEach.call(nav.children,function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    var v=b.dataset.v;
+    document.getElementById('view-voice').classList.toggle('show',v==='voice');
+    document.getElementById('view-ops').classList.toggle('show',v==='ops');
+    if(v==='ops')opsRender();
+  });
+
+  /* ── 운영 대시보드 렌더 ── */
+  var CHART=[62.1,70.2,58.4,64.9,60.3,66.1]; // 최근 6개월 매입(백만원, 데모)
+  var chartDone=false;
+  function opsRender(){
+    // KPI: 이번달 접수/미조치
+    var ms={}; items.forEach(function(it){var m=monthOf(it);if(m)ms[m]=1;});
+    var latest=Object.keys(ms).sort().reverse()[0];
+    var monthItems=latest?items.filter(function(it){return monthOf(it)===latest}):items;
+    var open=items.filter(function(it){return it.status!=='조치완료'}).length;
+    document.getElementById('kpi-voice').innerHTML=monthItems.length+'<span class="u">건</span>';
+    document.getElementById('kpi-voice-d').textContent=(latest?labelMonth(latest):'전체')+' 크루 보이스';
+    document.getElementById('kpi-open').innerHTML=open+'<span class="u">건</span>';
+    var now=new Date();
+    document.getElementById('ops-updated').textContent='실시간 업데이트 '+now.toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    // 차트 (최초 1회 빌드)
+    if(!chartDone){
+      var c=document.getElementById('chart'),max=Math.max.apply(null,CHART);
+      c.innerHTML=CHART.map(function(v,i){
+        var h=Math.round(v/max*100);
+        return '<div class="col'+(i===CHART.length-1?' hi':'')+'" style="height:'+h+'%;animation-delay:'+(i*0.06)+'s"></div>';
+      }).join('');
+      chartDone=true;
+    }
+  }
 
   // 30초 자동 새로고침
   setInterval(function(){ if(app.classList.contains('show'))load(); },30000);
