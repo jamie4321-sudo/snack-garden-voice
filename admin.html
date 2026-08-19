@@ -430,9 +430,14 @@
     beep();
     if(navigator.vibrate)navigator.vibrate(40);
   }
+  // 사용자 지정 알림음(mp3 등) — 있으면 우선 재생
+  var SND_URL=(window.SG_NOTIFY_SOUND||"").trim();
+  var sndEl=null;
+  if(SND_URL){ sndEl=new Audio(SND_URL); sndEl.preload='auto'; sndEl.volume=0.85; }
   var actx;
   function beep(){
     if(!document.getElementById('snd').checked)return;
+    if(sndEl){ try{ sndEl.currentTime=0; sndEl.play(); return; }catch(e){} }
     try{
       actx=actx||new (window.AudioContext||window.webkitAudioContext)();
       var t=actx.currentTime;
