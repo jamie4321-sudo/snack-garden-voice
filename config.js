@@ -12,4 +12,4 @@ window.SG_ORDER_SHEET_URL = "";
 
 // 새 보이스 알림음 파일(mp3/wav/ogg). 저장소에 파일을 올리고 경로를 적으면 그 소리로 재생됩니다.
 // 예: "notify.mp3"  또는  "sounds/ding.mp3".  비워두면 기본 합성음(삐빅)이 재생됩니다.
-window.SG_NOTIFY_SOUND = "";
+window.SG_NOTIFY_SOUND = "notify.wav";
