@@ -195,6 +195,16 @@
   .thumb .rm{position:absolute;top:3px;right:3px;width:18px;height:18px;border:none;border-radius:50%;
     background:rgba(10,10,11,.8);color:#fff;font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center}
 
+  /* 접수자 이름 / 익명 */
+  .namerow{display:flex;gap:9px;align-items:stretch}
+  .namerow input[type=text]{flex:1;min-width:0}
+  .anon{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--ink-2);
+    white-space:nowrap;cursor:pointer;user-select:none;background:var(--panel-2);border:1px solid var(--line);
+    border-radius:var(--r);padding:0 14px;transition:border-color .16s,color .16s}
+  .anon input{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+  .anon.on{border-color:var(--accent);color:var(--ink)}
+  input[type=text]:disabled{opacity:.55;cursor:not-allowed}
+
   /* ── Success ── */
   .done{position:fixed;inset:0;z-index:30;background:rgba(10,10,11,.86);
     backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}
@@ -273,6 +283,13 @@
   <!-- Form panel -->
   <section class="panel">
     <form id="f">
+      <div class="card" id="c0">
+        <div class="qtitle">크루명<span class="opt">선택 · 비공개 가능</span></div>
+        <div class="namerow">
+          <input type="text" id="name" placeholder="크루명 (예: jamie.4321)" autocomplete="off" maxlength="24" />
+          <label class="anon" id="anonlbl"><input type="checkbox" id="anon" />익명</label>
+        </div>
+      </div>
       <div class="card" id="c1">
         <div class="qtitle"><span class="n">1</span>어떤 내용인가요?<span class="req">*</span></div>
         <div class="chips" id="chips">
@@ -332,6 +349,7 @@
     <p class="p">총무 담당자에게 실시간으로 전달됐어요</p>
     <div class="ticket">
       <div class="r"><span class="k">접수번호</span><span class="v num" id="tno">—</span></div>
+      <div class="r"><span class="k">접수자</span><span class="v" id="tname">—</span></div>
       <div class="r"><span class="k">분류</span><span class="v" id="tcat">—</span></div>
       <div class="r"><span class="k">위치</span><span class="v num" id="tloc">—</span></div>
       <div class="r"><span class="k">접수시각</span><span class="v num" id="ttime">—</span></div>
@@ -345,6 +363,16 @@
 <script>
   // 백엔드(Apps Script 웹앱) 주소. config.js 의 window.SG_ENDPOINT 로 주입. 없으면 데모 모드.
   var ENDPOINT=(window.SG_ENDPOINT||"").trim();
+
+  // 접수자 이름 / 익명
+  var nameEl=document.getElementById('name'), anonEl=document.getElementById('anon'), anonLbl=document.getElementById('anonlbl');
+  anonEl.addEventListener('change',function(){
+    anonLbl.classList.toggle('on',anonEl.checked);
+    nameEl.disabled=anonEl.checked;
+    if(anonEl.checked){ nameEl.value=''; nameEl.placeholder='익명으로 접수돼요'; }
+    else{ nameEl.placeholder='크루명 (예: jamie.4321)'; }
+  });
+  function submitterName(){ return anonEl.checked ? '익명' : (nameEl.value.trim() || '익명'); }
 
   var cat="";
   var chips=document.getElementById('chips'),c1=document.getElementById('c1');
@@ -414,7 +442,8 @@
     e.preventDefault(); if(busy)return;
     var now=new Date(),pad=function(n){return(n<10?'0':'')+n};
     var no='SG-'+pad(now.getMonth()+1)+pad(now.getDate())+'-'+(Math.floor(Math.random()*900)+100);
-    var payload={ ticket:no, category:cat, location:loc.value.trim(),
+    var who=submitterName();
+    var payload={ ticket:no, name:who, category:cat, location:loc.value.trim(),
       message:msg.value.trim(), photos:photos.map(function(p){return p.dataUrl}) };
 
     busy=true; btn.disabled=true; btnt.textContent='접수 중…';
@@ -422,6 +451,7 @@
     var finish=function(ok){
       busy=false;
       document.getElementById('tno').textContent=no;
+      document.getElementById('tname').textContent=who;
       document.getElementById('tcat').textContent=cat;
       document.getElementById('tloc').textContent=loc.value.trim();
       document.getElementById('ttime').textContent=pad(now.getHours())+':'+pad(now.getMinutes());

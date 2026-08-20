@@ -105,6 +105,7 @@
   .stt.s2{background:rgba(74,222,128,.14);color:var(--green)}
   .meta{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--ink-3)}
   .meta .loc{color:var(--accent)}
+  .meta .who{color:var(--ink);font-weight:800}
   .msg{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.55;
     background:var(--panel-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:11px 12px}
   .pics{display:flex;gap:7px;flex-wrap:wrap}
@@ -494,7 +495,7 @@
       el.innerHTML=
         '<div class="head"><span class="cat"><span class="ico">'+(CATICO[it.category]||'💬')+'</span>'+esc_(it.category||'기타')+'</span>'+
         '<span class="stt s'+si+'">'+esc_(it.status)+'</span></div>'+
-        '<div class="meta"><span class="loc num">'+esc_(it.location||'')+'</span><span>·</span><span class="num">'+fmt_(it.time)+'</span><span>·</span><span class="num">'+esc_(it.ticket||'')+'</span></div>'+
+        '<div class="meta"><span class="who">'+esc_(it.name||'익명')+'</span><span>·</span><span class="loc num">'+esc_(it.location||'')+'</span><span>·</span><span class="num">'+fmt_(it.time)+'</span><span>·</span><span class="num">'+esc_(it.ticket||'')+'</span></div>'+
         '<div class="msg">'+esc_(it.message||'')+'</div>'+
         '<div class="pics">'+pics+'</div>'+
         '<div class="acts">'+acts+'</div>';
@@ -527,11 +528,11 @@
 
   // 백엔드 미연결 시 보여줄 예시
   var DEMO=[
-    {row:0,time:'2026-08-19 09:12',ticket:'SG-0819-204',category:'품절·재고',location:'11F',message:'바나나 우유 재고가 소진됐어요. 보충 부탁드립니다!',photos:[],status:'조치완료',memo:''},
-    {row:0,time:'2026-08-19 10:03',ticket:'SG-0819-337',category:'위생·청결',location:'14F',message:'냉장고 온도가 높은 것 같아요. 음료가 미지근합니다.',photos:[],status:'확인중',memo:''},
-    {row:0,time:'2026-08-19 11:20',ticket:'SG-0819-451',category:'신상품 요청',location:'10F',message:'제로 탄산음료 종류를 늘려주시면 좋겠어요.',photos:[],status:'접수',memo:''},
-    {row:0,time:'2026-07-28 14:40',ticket:'SG-0728-118',category:'기타 의견',location:'15F',message:'커피 캡슐 종류가 다양해서 좋아요. 감사합니다!',photos:[],status:'조치완료',memo:''},
-    {row:0,time:'2026-07-15 08:55',ticket:'SG-0715-092',category:'품절·재고',location:'12F',message:'생수 재고가 자주 떨어져요. 발주량을 늘려주세요.',photos:[],status:'조치완료',memo:''}
+    {row:0,time:'2026-08-19 09:12',ticket:'SG-0819-204',name:'jamie.4321',category:'품절·재고',location:'11F',message:'바나나 우유 재고가 소진됐어요. 보충 부탁드립니다!',photos:[],status:'조치완료',memo:''},
+    {row:0,time:'2026-08-19 10:03',ticket:'SG-0819-337',name:'익명',category:'위생·청결',location:'14F',message:'냉장고 온도가 높은 것 같아요. 음료가 미지근합니다.',photos:[],status:'확인중',memo:''},
+    {row:0,time:'2026-08-19 11:20',ticket:'SG-0819-451',name:'sohee.k',category:'신상품 요청',location:'10F',message:'제로 탄산음료 종류를 늘려주시면 좋겠어요.',photos:[],status:'접수',memo:''},
+    {row:0,time:'2026-07-28 14:40',ticket:'SG-0728-118',name:'익명',category:'기타 의견',location:'15F',message:'커피 캡슐 종류가 다양해서 좋아요. 감사합니다!',photos:[],status:'조치완료',memo:''},
+    {row:0,time:'2026-07-15 08:55',ticket:'SG-0715-092',name:'minjun.p',category:'품절·재고',location:'12F',message:'생수 재고가 자주 떨어져요. 발주량을 늘려주세요.',photos:[],status:'조치완료',memo:''}
   ];
 
   /* ── 뷰 전환 (크루 보이스 / 운영 대시보드) ── */

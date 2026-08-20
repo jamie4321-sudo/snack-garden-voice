@@ -15,7 +15,7 @@ var CFG = {
   FOLDER_NAME: '크루보이스_사진',
   // 관리자 페이지 접근 키. admin.html 잠금화면에 입력하는 값. 원하는 값으로 바꾸세요.
   ADMIN_KEY  : '1234',
-  HEADERS    : ['접수시각','접수번호','분류','위치','내용','사진','상태','처리메모']
+  HEADERS    : ['접수시각','접수번호','접수자','분류','위치','내용','사진','상태','처리메모']
 };
 
 /* ===== 저장(접수) ===== */
@@ -40,7 +40,7 @@ function doPost(e) {
     var now = new Date();
     sheet.appendRow([
       Utilities.formatDate(now, Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm:ss'),
-      data.ticket || '', data.category || '', data.location || '',
+      data.ticket || '', data.name || '익명', data.category || '', data.location || '',
       data.message || '', links.join('\n'), '접수', ''
     ]);
 
@@ -60,8 +60,8 @@ function doGet(e) {
   if (p.action === 'status' && p.row) {
     var r = parseInt(p.row, 10);
     if (r >= 2) {
-      sheet.getRange(r, 7).setValue(p.status || '접수');      // 상태
-      if (p.memo != null) sheet.getRange(r, 8).setValue(p.memo); // 처리메모
+      sheet.getRange(r, 8).setValue(p.status || '접수');      // 상태 (col 8)
+      if (p.memo != null) sheet.getRange(r, 9).setValue(p.memo); // 처리메모 (col 9)
     }
     return json_({ ok: true });
   }
@@ -70,14 +70,14 @@ function doGet(e) {
   var last = sheet.getLastRow();
   var items = [];
   if (last >= 2) {
-    var rows = sheet.getRange(2, 1, last - 1, 8).getValues();
+    var rows = sheet.getRange(2, 1, last - 1, 9).getValues();
     rows.forEach(function (row, idx) {
       items.push({
         row: idx + 2,
-        time: row[0], ticket: row[1], category: row[2], location: row[3],
-        message: row[4],
-        photos: String(row[5] || '').split('\n').filter(String),
-        status: row[6] || '접수', memo: row[7] || ''
+        time: row[0], ticket: row[1], name: row[2] || '익명',
+        category: row[3], location: row[4], message: row[5],
+        photos: String(row[6] || '').split('\n').filter(String),
+        status: row[7] || '접수', memo: row[8] || ''
       });
     });
     items.reverse();
