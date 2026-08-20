@@ -49,6 +49,10 @@
   /* ── Shell ── */
   .app{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:22px 18px 60px;display:none}
   .app.show{display:block}
+  /* 임베드 모드: 상단 크롬 숨김 */
+  body.embed .top,body.embed .nav{display:none}
+  body.embed .app{padding:16px 16px 24px}
+  body.embed .lock{display:none}
   header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
   .brand{display:flex;align-items:center;gap:9px}
   .brand .wm{font-family:var(--display);font-size:19px;letter-spacing:.03em}
@@ -577,9 +581,17 @@
   // 30초 자동 새로고침
   setInterval(function(){ if(app.classList.contains('show'))load(); },30000);
 
-  // 저장된 키가 있으면 자동 입장 (모든 정의 이후 실행)
-  var saved=sessionStorage.getItem('sg_admin_key');
-  if(saved){ KEY=saved; enter(); }
+  // 임베드 모드(제안서 등): ?embed=1[&view=ops] → 잠금 우회 + 지정 뷰 표시, 상단 크롬 숨김
+  var qp=new URLSearchParams(location.search);
+  if(qp.has('embed')){
+    document.body.classList.add('embed');
+    KEY='embed'; enter();
+    if(qp.get('view')==='ops'){ var ob=document.querySelector('.navbtn[data-v="ops"]'); if(ob)ob.click(); }
+  } else {
+    // 저장된 키가 있으면 자동 입장 (모든 정의 이후 실행)
+    var saved=sessionStorage.getItem('sg_admin_key');
+    if(saved){ KEY=saved; enter(); }
+  }
 </script>
 </body>
 </html>
