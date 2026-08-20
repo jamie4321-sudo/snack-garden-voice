@@ -121,6 +121,10 @@
   .pc-row .txt b{color:var(--text-primary)}
   .pc-frame{margin-top:14px;border-radius:18px;overflow:hidden;height:376px;background:#0a0a0b;border:1px solid rgba(0,0,0,.06)}
   .pc-frame iframe{width:100%;height:100%;border:0;display:block}
+  .pc-qr{margin-top:16px;display:flex;justify-content:center}
+  .pc-qr img{width:230px;height:230px;border-radius:16px;background:#fff}
+  .pc-qtxt{margin-top:14px;text-align:center;font-size:13.5px;font-weight:600;color:var(--text-secondary)}
+  .pc-qtxt b{color:var(--text-primary);font-weight:800}
   @media (max-width:820px){.hero-in{grid-template-columns:1fr}.paycard{max-width:420px;transform:none;animation:none}.paycard::before{inset:8px -8px -8px 8px}}
 
   /* ── feature cards ── */
@@ -298,11 +302,10 @@
         <div class="st"><div class="v num" data-count="6" data-suffix="+">0</div><div class="k">시즌 이벤트</div></div>
       </div>
     </div>
-    <div class="paycard rv in d1" aria-label="실시간 접수 현황 카드">
-      <div class="pc-head">🍫 실시간 접수 현황 <span class="live"><i></i>LIVE</span></div>
-      <div class="pc-row"><span class="tag don">조치완료</span><span class="txt"><b>11F</b> · 바나나 우유 재고 소진</span></div>
-      <div class="pc-row"><span class="tag wip">확인중</span><span class="txt"><b>14F</b> · 냉장고 온도 이상</span></div>
-      <div class="pc-row"><span class="tag new">접수</span><span class="txt"><b>10F</b> · 제로 탄산음료 요청</span></div>
+    <div class="paycard rv in d1" aria-label="크루 보이스 접수 QR">
+      <div class="pc-head">🍫 크루 보이스 접수 <span class="live"><i></i>QR 체험</span></div>
+      <div class="pc-qr"><img src="qr.png" alt="크루 보이스 접수 QR 코드" /></div>
+      <div class="pc-qtxt">카메라로 스캔하면 <b>실제 접수 화면</b>이 열립니다</div>
     </div>
   </div>
 </header>
