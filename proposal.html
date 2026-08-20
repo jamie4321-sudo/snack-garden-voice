@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#191919" />
+<title>스낵 큐레이션 제안서 · Linkagelab × kakaopay</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  :root{
+    --yellow:#FEE500; --ink:#191919; --ink-2:#555; --ink-3:#8a8a8a;
+    --bg:#ffffff; --soft:#f6f6f4; --line:#e9e9e6; --dark:#141414; --dark-2:#1f1f1f;
+    --sans:"Wanted Sans Variable","Wanted Sans","Pretendard Variable",Pretendard,system-ui,-apple-system,sans-serif;
+    --display:"Anton",var(--sans);
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth;scroll-padding-top:66px}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);
+    line-height:1.6;letter-spacing:-.01em;font-weight:500;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{margin:0;letter-spacing:-.03em;line-height:1.12}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  img{max-width:100%;display:block}
+
+  /* ── Nav ── */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;gap:20px}
+  .brand{font-size:14px;font-weight:900;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .brand .yb{background:var(--yellow);border-radius:6px;padding:2px 7px}
+  .nav-links{display:flex;gap:22px;margin-left:auto;font-size:13.5px;font-weight:700;color:var(--ink-2)}
+  .nav-links a{transition:color .15s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{background:var(--ink);color:#fff;font-size:13px;font-weight:800;padding:9px 16px;border-radius:999px;
+    white-space:nowrap;transition:transform .12s}
+  .nav-cta:hover{transform:translateY(-1px)}
+  .prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--yellow);width:0}
+  @media (max-width:860px){.nav-links{display:none}}
+
+  /* ── Section scaffold ── */
+  section{padding:96px 22px}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  .kicker{display:inline-block;font-family:var(--display);font-weight:400;font-size:13px;letter-spacing:.08em;
+    background:var(--yellow);color:var(--ink);padding:6px 13px;border-radius:999px;margin-bottom:20px}
+  .h2{font-size:clamp(28px,4.4vw,44px);font-weight:800}
+  .lead{font-size:clamp(15px,1.7vw,18px);color:var(--ink-2);font-weight:500;margin-top:16px;max-width:60ch}
+  .soft{background:var(--soft)}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ── Hero ── */
+  .hero{background:var(--dark);color:#fff;padding:0;position:relative;overflow:hidden;min-height:92vh;display:flex;align-items:center}
+  .hero::before{content:"";position:absolute;right:-12%;top:-18%;width:60vw;height:60vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(254,229,0,.16),transparent 62%)}
+  .hero-in{max-width:var(--maxw);margin:0 auto;padding:120px 22px 90px;width:100%;position:relative}
+  .hero .tag{font-size:14px;font-weight:800;color:var(--yellow);letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .hero .tag .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 5px rgba(254,229,0,.16)}
+  .hero .eng{font-family:var(--display);font-size:16px;letter-spacing:.16em;color:#c9c9c9;margin:34px 0 14px}
+  .hero h1{font-size:clamp(40px,8vw,86px);font-weight:800;line-height:1.02}
+  .hero h1 .hl{color:var(--ink);background:var(--yellow);padding:0 .12em;border-radius:10px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .hero .sub{font-size:clamp(15px,2vw,19px);color:#d6d6d6;margin-top:26px;max-width:52ch;font-weight:500}
+  .hero .meta{margin-top:22px;font-size:13.5px;color:#9a9a9a;font-weight:700}
+  .hero .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px;max-width:720px}
+  .hero .stat .v{font-family:var(--display);font-size:clamp(30px,5vw,46px);color:var(--yellow);letter-spacing:.02em;line-height:1}
+  .hero .stat .k{font-size:12.5px;color:#b5b5b5;font-weight:700;margin-top:8px}
+  @media (max-width:620px){.hero .stats{grid-template-columns:repeat(2,1fr);gap:20px 14px}}
+
+  /* ── Cards / grids ── */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
+  @media (max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+  @media (max-width:560px){.grid4{grid-template-columns:1fr}}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;transition:transform .18s,box-shadow .18s,border-color .18s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.07);border-color:#dcdcd8}
+  .card .ico{width:46px;height:46px;border-radius:13px;background:var(--yellow);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+  .card h3{font-size:17px;font-weight:800;margin-bottom:8px}
+  .card p{font-size:13.5px;color:var(--ink-2);font-weight:500}
+  .card.dark{background:var(--dark-2);border-color:#2a2a2a;color:#fff}
+  .card.dark p{color:#b9b9b9}
+
+  /* process flow */
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:40px}
+  .flow .step{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:11px 20px;font-weight:800;font-size:14.5px}
+  .flow .step .i{font-family:var(--display);color:#c9a800;font-size:12px;margin-right:8px}
+  .flow .arw{color:var(--ink-3);font-weight:900}
+
+  /* numbered list */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  @media (max-width:860px){.nums{grid-template-columns:1fr}}
+  .nn{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px}
+  .nn .n{font-family:var(--display);font-size:15px;color:var(--ink);background:var(--yellow);width:34px;height:34px;
+    display:grid;place-items:center;border-radius:10px;margin-bottom:14px}
+  .nn h3{font-size:16px;font-weight:800;margin-bottom:7px}
+  .nn p{font-size:13.5px;color:var(--ink-2);font-weight:500}
+
+  .note{margin-top:26px;background:var(--ink);color:#fff;border-radius:14px;padding:16px 20px;font-size:14px;font-weight:700;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .note .b{background:var(--yellow);color:var(--ink);border-radius:8px;padding:3px 10px;font-size:12px;font-weight:900}
+
+  /* ── Event grid ── */
+  .events{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+  @media (max-width:900px){.events{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.events{grid-template-columns:1fr}}
+  .ev{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--bg);position:relative;overflow:hidden}
+  .ev .q{position:absolute;top:16px;right:18px;font-family:var(--display);font-size:13px;color:var(--ink-3)}
+  .ev .em{font-size:26px}
+  .ev h3{font-size:16px;font-weight:800;margin:12px 0 6px}
+  .ev p{font-size:13px;color:var(--ink-2);font-weight:500}
+
+  /* ── Realtime / demo ── */
+  .rt{background:var(--dark);color:#fff}
+  .rt .kicker{background:var(--yellow)}
+  .rt .h2{color:#fff}
+  .rt .lead{color:#c9c9c9}
+  .demo-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;margin-top:52px;align-items:center}
+  @media (max-width:900px){.demo-grid{grid-template-columns:1fr;gap:34px}}
+  .rtflow{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+  .rtflow .r{display:flex;align-items:center;gap:14px;background:var(--dark-2);border:1px solid #2a2a2a;border-radius:14px;padding:16px 18px}
+  .rtflow .r .n{font-family:var(--display);font-size:13px;color:var(--ink);background:var(--yellow);width:30px;height:30px;display:grid;place-items:center;border-radius:9px;flex:none}
+  .rtflow .r h3{font-size:15.5px;font-weight:800}
+  .rtflow .r p{font-size:13px;color:#a9a9a9;font-weight:500;margin-top:2px}
+  .qrbox{display:flex;gap:16px;align-items:center;background:var(--dark-2);border:1px solid #2a2a2a;border-radius:16px;padding:16px}
+  .qrbox img{width:104px;height:104px;border-radius:12px}
+  .qrbox .t h3{font-size:14.5px;font-weight:800}
+  .qrbox .t p{font-size:12px;color:#9a9a9a;margin-top:4px;word-break:break-all}
+  .demo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn-y{background:var(--yellow);color:var(--ink);font-weight:800;font-size:14px;padding:12px 20px;border-radius:12px;transition:transform .12s,filter .15s}
+  .btn-y:hover{transform:translateY(-1px);filter:brightness(1.04)}
+  .btn-o{border:1px solid #3a3a3a;color:#fff;font-weight:800;font-size:14px;padding:12px 20px;border-radius:12px;transition:border-color .15s}
+  .btn-o:hover{border-color:#666}
+
+  /* phone frame with iframe */
+  .phone{justify-self:center;width:340px;max-width:100%;background:#000;border:10px solid #000;border-radius:44px;
+    box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;position:relative}
+  .phone::before{content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#000;border-radius:0 0 16px 16px;z-index:3}
+  .phone .scr{position:relative;background:#0a0a0b;border-radius:34px;overflow:hidden;height:680px}
+  .phone iframe{width:100%;height:100%;border:0;display:block}
+  .phone .try{position:absolute;top:0;left:0;right:0;text-align:center;background:rgba(198,255,46,.16);color:#eaffb0;
+    font-size:11.5px;font-weight:800;padding:6px;z-index:2;pointer-events:none;letter-spacing:.02em}
+
+  /* ── Dashboard preview ── */
+  .dash{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;margin-top:52px;align-items:center}
+  @media (max-width:900px){.dash{grid-template-columns:1fr}}
+  .dashcard{background:var(--dark);border-radius:20px;padding:24px;color:#fff}
+  .dashcard .dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .dashcard .dh .t{font-size:15px;font-weight:800}
+  .dashcard .live{font-size:10.5px;font-weight:900;color:#c6ff2e;background:rgba(198,255,46,.14);padding:4px 10px;border-radius:999px}
+  .kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .kpi3 .b{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:12px;padding:14px}
+  .kpi3 .b .k{font-size:11px;color:#9a9a9a;font-weight:700}
+  .kpi3 .b .v{font-family:var(--display);font-size:22px;margin-top:8px}
+  .kpi3 .b .v.y{color:var(--yellow)}
+  .budget{height:12px;background:#1f1f1f;border-radius:999px;overflow:hidden;margin:18px 0 6px;border:1px solid #2a2a2a}
+  .budget span{display:block;height:100%;background:var(--yellow);border-radius:999px}
+  .budget-l{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#c9c9c9}
+  .feat{display:flex;flex-direction:column;gap:16px}
+  .feat .f{display:flex;gap:14px}
+  .feat .f .fi{width:42px;height:42px;flex:none;border-radius:12px;background:var(--yellow);display:grid;place-items:center;font-size:20px}
+  .feat .f h3{font-size:16px;font-weight:800}
+  .feat .f p{font-size:13.5px;color:var(--ink-2);font-weight:500;margin-top:3px}
+
+  /* ── Cost table ── */
+  .cost{display:grid;grid-template-columns:1.3fr 1fr;gap:34px;margin-top:44px;align-items:start}
+  @media (max-width:900px){.cost{grid-template-columns:1fr}}
+  table.tb{width:100%;border-collapse:collapse;font-size:14px}
+  table.tb td{padding:11px 14px;border-bottom:1px solid var(--line)}
+  table.tb td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+  table.tb tr.sum td{background:var(--soft);font-weight:800}
+  table.tb tr.total td{background:var(--ink);color:#fff;font-weight:900;font-size:15px}
+  table.tb tr.total td .y{color:var(--yellow)}
+  table.tb tr.minus td{color:#c25b3a;font-weight:700}
+  .costpts{display:flex;flex-direction:column;gap:14px}
+  .costpts .cp{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .costpts .cp .n{font-family:var(--display);color:#c9a800;font-size:13px}
+  .costpts .cp h3{font-size:15.5px;font-weight:800;margin:8px 0 6px}
+  .costpts .cp p{font-size:13.5px;color:var(--ink-2)}
+  .costnote{font-size:12.5px;color:var(--ink-3);font-weight:600;margin-top:14px}
+
+  /* ── Closing ── */
+  .close{background:var(--dark);color:#fff;text-align:center}
+  .close .big{font-size:clamp(36px,7vw,72px);font-weight:800;letter-spacing:-.03em}
+  .close .big .hl{color:var(--yellow)}
+  .close .sub{color:#bdbdbd;margin-top:20px;font-size:16px;font-weight:600}
+  .close .eng{font-family:var(--display);letter-spacing:.14em;color:#6a6a6a;margin-top:40px;font-size:14px}
+  footer{background:#0d0d0d;color:#7a7a7a;text-align:center;padding:26px;font-size:12px;font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="yb">Linkagelab</span>×&nbsp;kakaopay</div>
+    <nav class="nav-links">
+      <a href="#service">서비스</a>
+      <a href="#event">이벤트</a>
+      <a href="#realtime">실시간 대응</a>
+      <a href="#dashboard">대시보드</a>
+      <a href="#cost">운영비</a>
+      <a href="#esg">ESG</a>
+    </nav>
+    <a href="#realtime" class="nav-cta">데모 체험 →</a>
+    <div class="prog" id="prog"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-in">
+    <div class="tag"><span class="dot"></span>Linkagelab × kakaopay · SNACK CURATION</div>
+    <div class="eng">THE SNACK BAR YOU DESERVE</div>
+    <h1>매일이 이벤트가 되는<br><span class="hl">스낵마켓</span></h1>
+    <p class="sub">구성원 취향과 시즌감을 담은 큐레이션, 실시간 소통으로 빈틈없이 운영합니다.</p>
+    <div class="meta">카카오페이 판교 아지트 · 10층 ~ 15층 · 2026</div>
+    <div class="stats">
+      <div class="stat"><div class="v num">3</div><div class="k">운영 지역</div></div>
+      <div class="stat"><div class="v num">28</div><div class="k">관리 스팟</div></div>
+      <div class="stat"><div class="v">일 2회</div><div class="k">정기 진열</div></div>
+      <div class="stat"><div class="v num">6+</div><div class="k">시즌 이벤트</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICE -->
+<section id="service">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">01 · SERVICE</span>
+    <h2 class="h2">스낵 큐레이션 서비스</h2>
+    <p class="lead">구성원 취향, 위생, 데이터, ESG까지 — 스낵바 운영의 모든 축을 하나의 팀이 책임집니다.</p></div>
+    <div class="grid4">
+      <div class="card reveal"><div class="ico">✨</div><h3>맞춤형 큐레이션</h3><p>구성원 선호도와 계절감을 반영한 시즌별 이벤트 등 맞춤 간식 구성</p></div>
+      <div class="card reveal"><div class="ico">🧼</div><h3>위생 관리</h3><p>정기 클렌징과 설비 점검으로 안정적인 이용 환경 유지</p></div>
+      <div class="card reveal"><div class="ico">📊</div><h3>데이터 재고관리</h3><p>발주 데이터 및 월간 재고 현황 투명 공유 기반 운영 최적화</p></div>
+      <div class="card reveal"><div class="ico">🌱</div><h3>ESG 친환경 운영</h3><p>친환경 부자재 사용과 장애인 크루 운영으로 ESG 가치 실현</p></div>
+    </div>
+    <div class="flow reveal">
+      <span class="step"><span class="i">01</span>수요 조사</span><span class="arw">›</span>
+      <span class="step"><span class="i">02</span>소싱 &amp; 큐레이션</span><span class="arw">›</span>
+      <span class="step"><span class="i">03</span>입고 · 진열</span><span class="arw">›</span>
+      <span class="step"><span class="i">04</span>재고 관리</span>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT -->
+<section id="event" class="soft">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">02 · EVENT ARCHIVE</span>
+    <h2 class="h2">이벤트, 순간들</h2>
+    <p class="lead">단순한 간식이 아니라, 매 분기 새로운 이야기를 만듭니다. 다음 시즌 이벤트는 카카오페이와 함께 기획합니다.</p></div>
+    <div class="events">
+      <div class="ev reveal"><span class="q">25 Q1</span><div class="em">🧧</div><h3>구정 한과</h3><p>전통 한과·유과 큐레이션 · 새해 인사 카드 동봉</p></div>
+      <div class="ev reveal"><span class="q">25 Q2</span><div class="em">🍬</div><h3>추억의 불량식품</h3><p>쫀드기·아폴로·짱구 · 추억 오브제 20종 구성</p></div>
+      <div class="ev reveal"><span class="q">25 Q3</span><div class="em">🥗</div><h3>저칼로리 간식</h3><p>그릭요거트·프로틴바 · 200kcal 이하 헬시 라인업</p></div>
+      <div class="ev reveal"><span class="q">25 Q4</span><div class="em">🎄</div><h3>크리스마스</h3><p>홀리데이 스낵 박스 · 진열대 시즌 데코 연출</p></div>
+      <div class="ev reveal"><span class="q">26 Q1</span><div class="em">🤍</div><h3>화이트데이</h3><p>수제 마시멜로우 · 미니 캔디 부케 연출</p></div>
+      <div class="ev reveal"><span class="q">26 Q2</span><div class="em">♻️</div><h3>ESG 다회용컵</h3><p>일회용 저감 캠페인 · 다회용컵·리유저블백</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REALTIME / DEMO -->
+<section id="realtime" class="rt">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">03 · REAL-TIME RESPONSE</span>
+    <h2 class="h2">빠른 소통, 즉각 대응</h2>
+    <p class="lead">크루의 보이스를 QR로 접수 → 총무와 동시에 확인 → 현장 즉각 대응. 오른쪽에서 <b style="color:#fff">실제 접수 화면을 지금 바로 체험</b>해보세요.</p></div>
+    <div class="demo-grid">
+      <div class="reveal">
+        <div class="rtflow">
+          <div class="r"><span class="n">01</span><div><h3>QR 코드 접수</h3><p>크루가 QR을 스캔해 불편·요청을 남깁니다 (10~15F)</p></div></div>
+          <div class="r"><span class="n">02</span><div><h3>총무 담당자 동시 확인</h3><p>접수 즉시 관리자 대시보드에 알림 — 실시간 파악</p></div></div>
+          <div class="r"><span class="n">03</span><div><h3>현장 즉각 조치</h3><p>확인부터 조치·완료까지 상태를 투명하게 기록</p></div></div>
+        </div>
+        <div class="qrbox">
+          <img src="qr.png" alt="크루 보이스 접수 QR" />
+          <div class="t"><h3>QR을 스캔하면 접수 화면이 열립니다</h3><p>jamie4321-sudo.github.io/snack-garden-voice</p></div>
+        </div>
+        <div class="demo-actions">
+          <a class="btn-y" href="./" target="_blank" rel="noopener">접수 화면 새 탭에서 열기 ↗</a>
+          <a class="btn-o" href="admin.html" target="_blank" rel="noopener">관리자 대시보드 (키 1234) ↗</a>
+        </div>
+      </div>
+      <div class="phone reveal">
+        <div class="scr">
+          <div class="try">↓ 실제 접수 화면 · 직접 작성해보세요</div>
+          <iframe src="./" title="크루 보이스 접수 데모" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">04 · DASHBOARD</span>
+    <h2 class="h2">담당자를 위한, 편한 관리</h2>
+    <p class="lead">복잡한 보고 없이, 대시보드 하나로 매입·재고·예산·설비 이슈까지 한눈에.</p></div>
+    <div class="dash">
+      <div class="dashcard reveal">
+        <div class="dh"><span class="t">📊 스낵바 운영 대시보드</span><span class="live">● LIVE</span></div>
+        <div class="kpi3">
+          <div class="b"><div class="k">이번 달 매입</div><div class="v">66.1M<span style="font-size:12px">원</span></div></div>
+          <div class="b"><div class="k">미조치 이슈</div><div class="v">3건</div></div>
+          <div class="b"><div class="k">예산 사용률</div><div class="v y">72%</div></div>
+        </div>
+        <div class="budget"><span style="width:72%"></span></div>
+        <div class="budget-l"><span>월 예산 사용</span><span class="num">72%</span></div>
+        <div class="kpi3" style="margin-top:16px">
+          <div class="b"><div class="k">정상 재고</div><div class="v">148</div></div>
+          <div class="b"><div class="k">부족 재고</div><div class="v" style="color:#f0b429">12</div></div>
+          <div class="b"><div class="k">발주 진행중</div><div class="v" style="color:#c6ff2e">7</div></div>
+        </div>
+      </div>
+      <div class="feat reveal">
+        <div class="f"><div class="fi">📊</div><div><h3>실시간 대시보드</h3><p>매입·재고·예산·설비 이슈를 한 화면에서 매일 확인</p></div></div>
+        <div class="f"><div class="fi">📱</div><div><h3>스낵바 넘버스앱</h3><p>층별·품목별 진열 수량을 앱에서 바로 조회</p></div></div>
+        <div class="f"><div class="fi">🔄</div><div><h3>자동 발주 프로세스</h3><p>재고 소진 전 선제 보충으로 재고 공백 제로</p></div></div>
+        <div class="f"><div class="fi">💰</div><div><h3>예산 초과 걱정 없는 관리</h3><p>월 사용률·잔여 예산을 실시간으로 조절</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARENCY -->
+<section id="transparency" class="soft">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">05 · TRANSPARENCY</span>
+    <h2 class="h2">더 투명하게, 데이터로 운영합니다</h2>
+    <p class="lead">비용 지출·재고 현황·매입 현황까지, 운영 데이터를 기반으로 예산 맞춤형 운영 구조를 설계합니다.</p></div>
+    <div class="grid3">
+      <div class="card reveal"><div class="ico">💳</div><h3>비용 지출</h3><p>월별 집행 내역을 카테고리·스팟별 리포트로 정기 제공</p></div>
+      <div class="card reveal"><div class="ico">📦</div><h3>재고 현황</h3><p>월별 재고 현황 및 주요 소진 품목 공유</p></div>
+      <div class="card reveal"><div class="ico">🧾</div><h3>매입 현황</h3><p>원두·부자재 매입 단가·수량·거래처를 투명하게 관리</p></div>
+    </div>
+    <div class="flow reveal">
+      <span class="step">📋 26 Q1 · 분기 운영 리포트</span><span class="arw">›</span>
+      <span class="step">🔍 26 Q2 · 위생 점검</span><span class="arw">›</span>
+      <span class="step">🌱 26 Q3 · ESG 그린</span><span class="arw">›</span>
+      <span class="step">✨ 26 Q4 · 고객사 맞춤</span>
+    </div>
+  </div>
+</section>
+
+<!-- COST -->
+<section id="cost">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">06 · COST PROPOSAL</span>
+    <h2 class="h2">운영비 제안</h2>
+    <p class="lead">카카오페이 1~5월 평균 집행 기준 · 부가세 미포함</p></div>
+    <div class="cost">
+      <div class="reveal">
+        <table class="tb">
+          <tr><td>신선식품</td><td class="r">16,198,711</td></tr>
+          <tr><td>과자</td><td class="r">9,497,342</td></tr>
+          <tr><td>음료</td><td class="r">7,727,260</td></tr>
+          <tr><td>젤리·초콜렛·바</td><td class="r">3,680,540</td></tr>
+          <tr><td>라면·즉석식품</td><td class="r">2,477,670</td></tr>
+          <tr><td>냉동식품</td><td class="r">2,442,180</td></tr>
+          <tr><td>원물간식</td><td class="r">2,257,508</td></tr>
+          <tr class="sum"><td>마트 소계</td><td class="r">44,281,211</td></tr>
+          <tr><td>무료음료</td><td class="r">17,953,710</td></tr>
+          <tr><td>고정 인건비</td><td class="r">9,424,000</td></tr>
+          <tr class="sum"><td>총합계</td><td class="r">71,658,921</td></tr>
+          <tr class="minus"><td>(−) 장애인 고용 감면 (월, 추정)</td><td class="r">△ 4,935,000</td></tr>
+          <tr class="total"><td>실질 부담 (감면 반영·월)</td><td class="r"><span class="y">66,723,921원</span></td></tr>
+        </table>
+        <p class="costnote">* 실비 기반 투명 정산 · 운영(링키지랩)과 납품(소싱) 역할 분리</p>
+      </div>
+      <div class="costpts reveal">
+        <div class="cp"><div class="n">01</div><h3>카카오 연계 기반 소싱 단가 안정화</h3><p>품목 구성·용량 변경·발주 구조 최적화로 운영 품질은 유지하면서 비용 효율화</p></div>
+        <div class="cp"><div class="n">02</div><h3>상주 운영으로 응대·품질·위생 관리 강화</h3><p>8h 2명(비장애 1·장애 중증 1) + 4h 장애 중증 1명 상주 운영</p></div>
+        <div class="cp" style="background:var(--ink);color:#fff;border:none"><div class="n" style="color:var(--yellow)">EFFECT</div><h3 style="color:#fff">예측 가능한 집행 구조</h3><p style="color:#c9c9c9">인건비·운영 실비용이 커버되는 구조로 월 지출·재고를 안정적으로 측정하고 계획적으로 집행</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EFFECTS / OPERATIONS / CARE -->
+<section id="effects" class="soft">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">07 · EXPECTED EFFECTS</span>
+    <h2 class="h2">서비스 기대 효과</h2></div>
+    <div class="grid3">
+      <div class="card reveal"><div class="ico">📈</div><h3>운영 품질 향상</h3><p>상주 운영 기반의 빠른 소통으로 진열·위생·품질 관리 안정화</p></div>
+      <div class="card reveal"><div class="ico">😊</div><h3>구성원 만족도 향상</h3><p>맞춤형 큐레이션과 안정적 운영으로 이용 만족도·서비스 체감 향상</p></div>
+      <div class="card reveal"><div class="ico">💰</div><h3>안정적 단가 운영</h3><p>카카오 운영 연계 구조 기반으로 소싱 단가·운영 비용 안정화 기대</p></div>
+    </div>
+    <div class="note reveal"><span class="b">NEW</span>복지 서비스 통합 시너지 — 총무 · 헬스키퍼 · 카페사업 <b>+ 스낵마켓</b> = 복지 시너지 🤝</div>
+
+    <div class="nums" style="margin-top:60px">
+      <div class="nn reveal"><div class="n">01</div><h3>품절 사전 방지</h3><p>재고 소진 전 선제 보충으로 진열 공백·품절 원천 차단</p></div>
+      <div class="nn reveal"><div class="n">02</div><h3>변경사항 사전 공유</h3><p>미입고·단종·변경 발생 즉시 담당자 소통방에 선제 통보</p></div>
+      <div class="nn reveal"><div class="n">03</div><h3>원인·조치 투명 기록</h3><p>이슈 발생부터 조치까지 리포트로 투명하게 공유</p></div>
+    </div>
+    <div class="note reveal"><span class="b">차별화</span>사후 확인(현행) → <b>사전 공유(링키지랩)</b> · 이용자 불편 발생 전에 대응</div>
+  </div>
+</section>
+
+<!-- ESG -->
+<section id="esg">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">08 · ESG IMPACT</span>
+    <h2 class="h2">장애인 고용 · 사회적 가치</h2>
+    <p class="lead">스낵바 운영에 장애 크루를 고용해 지속가능한 일자리를 창출하고, ESG 성과로 연결합니다.</p></div>
+    <div class="grid3">
+      <div class="card reveal"><div class="ico">🧑‍🦽</div><h3>장애인 일자리</h3><p>스낵바 운영에 장애 크루 고용 · 지속가능한 일자리 창출</p></div>
+      <div class="card reveal"><div class="ico">📉</div><h3>고용부담금 절감</h3><p>장애인 고용 확대에 따른 고용부담금 감면 효과 발생</p></div>
+      <div class="card reveal"><div class="ico">📑</div><h3>ESG 성과 반영</h3><p>ESG 보고서·대내 인식개선 등 정성·정량 성과로 활용</p></div>
+    </div>
+    <div class="note reveal"><span class="b">참고</span>카카오게임즈 사례 — 장애 크루 4명 고용 시 <b>연 1.45억 감면 효과</b> · 2024 링키지랩 운영 사례</div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="close">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="big">맛있는 하루를<br><span class="hl">링키지랩</span>과 함께</div>
+      <p class="sub">링키지랩 복지큐레이션부 · 스낵&amp;가든사업팀</p>
+      <div class="demo-actions" style="justify-content:center;margin-top:34px">
+        <a class="btn-y" href="#realtime">크루 보이스 데모 체험 →</a>
+      </div>
+      <div class="eng">THANK YOU · LINKAGELAB × KAKAOPAY</div>
+    </div>
+  </div>
+</section>
+<footer>© 2026 Linkage Lab Inc. · Linkagelab Confidential</footer>
+
+<script>
+  // scroll reveal
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  // nav progress bar
+  var prog=document.getElementById('prog');
+  addEventListener('scroll',function(){
+    var h=document.documentElement, sc=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    prog.style.width=(sc*100)+'%';
+  },{passive:true});
+</script>
+</body>
+</html>
