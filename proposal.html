@@ -57,7 +57,7 @@
   .h2{font-size:clamp(28px,4.4vw,46px);letter-spacing:-.045em;line-height:1.08}
   .h2 .hl{background:linear-gradient(transparent 62%,rgba(254,229,0,.85) 62%)}
   .lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--sub);margin-top:18px;max-width:56ch;line-height:1.65}
-  .head{max-width:var(--maxw);margin-bottom:46px}
+  .head{max-width:var(--maxw);margin-bottom:56px}
 
   .rv{opacity:0;transform:translateY(22px);transition:opacity .6s var(--eq),transform .6s var(--eq)}
   .rv.in{opacity:1;transform:none}
@@ -87,7 +87,7 @@
 
   /* service: divider list */
   .rows{border-top:1px solid var(--line)}
-  .row{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(16px,4vw,60px);padding:34px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .row{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(16px,4vw,60px);padding:40px 0;border-bottom:1px solid var(--line);align-items:baseline}
   .row h3{font-size:clamp(19px,2.2vw,24px);letter-spacing:-.03em}
   .row p{font-size:15px;color:var(--sub);line-height:1.6}
   @media (max-width:680px){.row{grid-template-columns:1fr;gap:8px}}
@@ -107,7 +107,7 @@
   .demo{display:grid;grid-template-columns:1fr 340px;gap:clamp(28px,5vw,56px);align-items:center;margin-top:4px}
   @media (max-width:940px){.demo{grid-template-columns:1fr}}
   .steps{counter-reset:st}
-  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline}
   .step:first-child{border-top:1px solid var(--line)}
   .step .n{counter-increment:st;font-family:var(--kr);font-weight:800;font-size:15px;color:var(--ink);width:30px;height:30px;border:1px solid var(--ink);border-radius:8px;display:grid;place-items:center}
   .step .n::before{content:counter(st)}
@@ -141,7 +141,7 @@
   /* two-col simple (transparency / effects) */
   .g2col{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
   @media (max-width:760px){.g2col{grid-template-columns:1fr}}
-  .g2col .it{padding:34px 26px 34px 0;border-right:1px solid var(--line)}
+  .g2col .it{padding:40px 26px 40px 0;border-right:1px solid var(--line)}
   .g2col .it:last-child{border-right:0}
   .g2col .it .no{font-size:13px;font-weight:800;color:#B39B00}
   .g2col .it h3{font-size:17.5px;margin:8px 0 8px}
@@ -160,7 +160,7 @@
   table.tb tr.total td .y{color:var(--yel)}
   table.tb tr.minus td{color:#B0442A}
   table.tb tr:last-child td{border-bottom:0}
-  .cp{padding:28px 0;border-bottom:1px solid var(--line)}
+  .cp{padding:32px 0;border-bottom:1px solid var(--line)}
   .cp:first-child{border-top:1px solid var(--line)}
   .cp .no{font-size:13px;font-weight:800;color:#B39B00}
   .cp h3{font-size:16px;margin:7px 0 6px}
