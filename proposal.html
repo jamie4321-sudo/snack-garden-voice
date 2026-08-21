@@ -87,14 +87,16 @@
 
   /* service: divider list */
   .rows{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .row{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 28px;transition:transform .18s var(--eq),box-shadow .18s var(--eq),border-color .18s}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;min-height:184px;display:flex;flex-direction:column;justify-content:center;transition:transform .18s var(--eq),box-shadow .18s var(--eq),border-color .18s}
   .row:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,.07);border-color:#dad9d0}
   .row h3{font-size:clamp(18px,2vw,22px);letter-spacing:-.03em;margin-bottom:10px}
   .row p{font-size:14.5px;color:var(--sub);line-height:1.6}
   @media (max-width:680px){.rows{grid-template-columns:1fr}}
-  .flow{margin-top:38px;font-size:15px;font-weight:700;color:var(--ink);display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .flow .s{color:var(--faint);font-weight:800}
-  .flow b{font-weight:800}
+  .flow{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .flow .lbl{font-size:13px;font-weight:700;color:var(--faint);margin-right:6px}
+  .flow .pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:13px 24px;font-weight:700;font-size:14.5px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .15s var(--eq),box-shadow .15s var(--eq)}
+  .flow .pill:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(0,0,0,.09)}
+  .flow .s{color:var(--faint);font-weight:800;font-size:15px}
 
   /* dark section base */
   .sec-dark{background:#0B0B0B;color:#F2EFE3}
@@ -284,15 +286,7 @@
   </div>
 </header>
 
-<!-- MARQUEE BAND -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>실시간 대응</span><span>데이터 투명 운영</span><span>맞춤 큐레이션</span><span>장애인 직접 고용</span><span>시즌 이벤트</span><span>선제 케어</span>
-    <span>실시간 대응</span><span>데이터 투명 운영</span><span>맞춤 큐레이션</span><span>장애인 직접 고용</span><span>시즌 이벤트</span><span>선제 케어</span>
-  </div>
-</div>
-
-<!-- SERVICE (divider list) -->
+<!-- SERVICE -->
 <section id="service">
   <div class="in">
     <div class="head rv"><h2 class="h2">스낵바 운영의 모든 축을, <span class="hl">한 팀이</span></h2>
@@ -303,7 +297,7 @@
       <div class="row rv"><h3>데이터 재고관리</h3><p>발주·재고 현황을 수치로 관리하며 운영을 최적화합니다.</p></div>
       <div class="row rv"><h3>ESG 친환경 운영</h3><p>친환경 부자재와 장애 크루 직접 고용으로 ESG 가치를 실현합니다.</p></div>
     </div>
-    <div class="flow rv">운영 프로세스 &nbsp; <b>수요 조사</b> <span class="s">→</span> <b>소싱 &amp; 큐레이션</b> <span class="s">→</span> <b>입고 · 진열</b> <span class="s">→</span> <b>재고 관리</b></div>
+    <div class="flow rv"><span class="lbl">운영 프로세스</span><span class="pill">수요 조사</span><span class="s">→</span><span class="pill">소싱 &amp; 큐레이션</span><span class="s">→</span><span class="pill">입고 · 진열</span><span class="s">→</span><span class="pill">재고 관리</span></div>
   </div>
 </section>
 
