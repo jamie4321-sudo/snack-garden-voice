@@ -92,11 +92,13 @@
   .row h3{font-size:clamp(18px,2vw,22px);letter-spacing:-.03em;margin-bottom:10px}
   .row p{font-size:14.5px;color:var(--sub);line-height:1.6}
   @media (max-width:680px){.rows{grid-template-columns:1fr}}
-  .flow{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .flow .lbl{font-size:13px;font-weight:700;color:var(--faint);margin-right:6px}
-  .flow .pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:13px 20px;min-width:148px;text-align:center;font-weight:700;font-size:14.5px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .15s var(--eq),box-shadow .15s var(--eq)}
-  .flow .pill:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(0,0,0,.09)}
-  .flow .s{color:var(--faint);font-weight:800;font-size:15px}
+  .flow{margin-top:32px}
+  .flow .lbl{display:block;font-size:13px;font-weight:700;color:var(--faint);margin:0 0 14px 2px}
+  .flow-row{display:flex;align-items:center;gap:12px}
+  .flow-row .pill{flex:1 1 0;min-width:0;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:14px 12px;font-weight:700;font-size:14.5px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .15s var(--eq),box-shadow .15s var(--eq)}
+  .flow-row .pill:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(0,0,0,.09)}
+  .flow-row .s{flex:0 0 auto;color:var(--faint);font-weight:800;font-size:15px}
+  @media (max-width:640px){.flow-row{flex-wrap:wrap}.flow-row .pill{flex:1 1 42%}.flow-row .s{display:none}}
 
   /* dark section base */
   .sec-dark{background:#0B0B0B;color:#F2EFE3}
@@ -327,15 +329,16 @@
 <!-- SERVICE -->
 <section id="service">
   <div class="in">
-    <div class="head rv"><h2 class="h2">스낵바 운영의 모든 것, <span class="hl">한 팀이</span></h2>
-    <p class="lede">구성원 취향, 위생, 데이터, ESG까지. 소싱부터 진열·재고·리포팅을 한 팀이 책임집니다.</p></div>
+    <div class="head rv"><h2 class="h2">스낵바 운영의 <span class="hl">모든 것</span></h2>
+    <p class="lede">구성원 취향, 위생, 데이터, ESG까지. 소싱부터 진열·재고·리포팅을 책임집니다.</p></div>
     <div class="rows rv">
       <div class="row"><h3>맞춤형 큐레이션</h3><p>구성원 선호도와 계절감을 반영한 시즌별 이벤트·맞춤 간식 구성으로, 매 분기 새로운 스낵 경험을 설계합니다.</p></div>
       <div class="row"><h3>위생 관리</h3><p>정기 클렌징과 설비 점검으로 안정적인 이용 환경을 유지합니다.</p></div>
       <div class="row"><h3>데이터 재고관리</h3><p>발주·재고 현황을 수치로 관리하며 운영을 최적화합니다.</p></div>
       <div class="row"><h3>ESG 친환경 운영</h3><p>친환경 부자재와 장애 크루 직접 고용으로 ESG 가치를 실현합니다.</p></div>
     </div>
-    <div class="flow rv"><span class="lbl">운영 프로세스</span><span class="pill">수요 조사</span><span class="s">→</span><span class="pill">소싱 &amp; 큐레이션</span><span class="s">→</span><span class="pill">입고 · 진열</span><span class="s">→</span><span class="pill">재고 관리</span></div>
+    <div class="flow rv"><span class="lbl">운영 프로세스</span>
+      <div class="flow-row"><span class="pill">수요 조사</span><span class="s">→</span><span class="pill">소싱 &amp; 큐레이션</span><span class="s">→</span><span class="pill">입고 · 진열</span><span class="s">→</span><span class="pill">재고 관리</span></div></div>
   </div>
 </section>
 
