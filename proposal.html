@@ -3,266 +3,221 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#FEE500" />
+<meta name="theme-color" content="#0B0B0B" />
 <title>스낵 큐레이션 제안서 · Linkagelab × kakaopay</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
 <style>
   :root{
-    /* palette (kakaopay tokens) */
-    --color-primary-500:#FEE500; --color-primary-600:#F5DA00; --color-primary-100:#FFF6BF; --color-primary-50:#FFFBE0;
-    --color-neutral-0:#FFFFFF;
-    --text-primary:#191919; --text-secondary:#4b4b4b; --text-tertiary:#8c8c8c; --text-on-primary:#191919;
-    --bg-base:#FFFFFF; --bg-subtle:#F7F7F4; --bg-elevated:#FFFFFF;
-    --border-subtle:#ECECE8;
-    --color-info-bg:#E9F0FF; --color-info-fg:#3768FF;
-    --color-success-bg:#E4F8EE; --color-success-fg:#0FB267;
-    /* shape / space / shadow */
-    --radius-full:999px; --radius-sm:12px; --radius-md:16px; --radius-lg:24px; --radius-xl:30px;
-    --space-sm:8px; --space-md:14px; --space-lg:22px; --space-xl:34px;
-    --shadow-sm:0 2px 12px rgba(25,25,25,.06); --shadow-md:0 10px 30px rgba(25,25,25,.09);
-    --shadow-lg:0 28px 70px rgba(25,25,25,.16);
-    --font:"Pretendard Variable",Pretendard,"Wanted Sans Variable",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --eq:cubic-bezier(.23,1,.32,1);
-    --maxw:1120px;
+    --ink:#0B0B0B; --panel:#141312; --panel-2:#1B1A17; --card:#151412;
+    --paper:#F2EFE3; --dim:#A7A398; --faint:#6E6B62; --line:rgba(242,239,227,.12); --line-2:rgba(242,239,227,.07);
+    --yel:#FEE500; --yel-d:#C9B400;
+    --green:#3CFF5D; --amber:#F0B429; --red:#FF5A52;
+    --kr:"Wanted Sans Variable","Wanted Sans","Pretendard Variable",Pretendard,system-ui,sans-serif;
+    --body:"Pretendard Variable",Pretendard,"Wanted Sans Variable",system-ui,-apple-system,sans-serif;
+    --disp:"Anton",var(--kr);
+    --eq:cubic-bezier(.2,.8,.2,1);
+    --maxw:1180px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html{scroll-behavior:smooth;scroll-padding-top:76px}
-  body{margin:0;font-family:var(--font);color:var(--text-primary);background:var(--bg-base);
-    line-height:1.6;letter-spacing:-.02em;font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-    word-break:keep-all;overflow-wrap:break-word}
-  h1,h2,h3{margin:0;letter-spacing:-.045em;line-height:1.12;font-weight:800}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{margin:0;font-family:var(--body);background:var(--ink);color:var(--paper);
+    line-height:1.6;letter-spacing:-.01em;font-weight:400;word-break:keep-all;overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{margin:0;font-family:var(--kr);font-weight:800;letter-spacing:-.035em;line-height:1.08}
   p{margin:0}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
   .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  .kick{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:.14em;
+    font-size:13px;color:var(--yel)}
 
   /* progress */
-  .prog{position:fixed;top:0;left:0;height:3px;background:var(--text-primary);width:0;z-index:60}
+  .prog{position:fixed;top:0;left:0;height:2px;background:var(--yel);width:0;z-index:60}
 
   /* nav */
-  .nav{position:sticky;top:0;z-index:55;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-subtle)}
-  .nav-in{max-width:var(--maxw);margin:0 auto;height:64px;display:flex;align-items:center;gap:var(--space-xl);padding:0 clamp(20px,5vw,40px)}
-  .logo{font-size:19px;font-weight:800;letter-spacing:-.05em;display:flex;align-items:center;gap:9px}
-  .logo b{background:var(--color-primary-500);border-radius:8px;padding:2px 8px}
-  /* kakao pay 시그니처 말풍선 마크 */
-  .bmk{display:inline-grid;place-items:center;background:var(--color-primary-500);border-radius:11px;flex:none}
-  .bmk svg{display:block}
-  .bmk svg path{fill:var(--text-primary)}
-  .logo .bmk{width:34px;height:34px}
-  .logo .bmk svg{width:20px;height:18px}
-  .links{display:flex;gap:26px;margin-left:auto;font-size:14px;font-weight:700;color:var(--text-secondary)}
-  .links a{transition:color .15s}
-  .links a:hover{color:var(--text-primary)}
-  .nav-cta{min-height:42px;display:inline-flex;align-items:center;padding:0 18px;border-radius:var(--radius-full);
-    background:var(--text-primary);color:#fff;font-size:13.5px;font-weight:800;transition:transform .16s var(--eq),box-shadow .16s var(--eq);box-shadow:var(--shadow-sm)}
-  .nav-cta:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .nav{position:sticky;top:0;z-index:55;background:rgba(11,11,11,.72);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line-2)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;height:66px;display:flex;align-items:center;gap:26px;padding:0 clamp(20px,5vw,44px)}
+  .logo{font-family:var(--disp);font-size:19px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+  .logo .x{color:var(--faint)}
+  .logo .k{color:var(--yel)}
+  .links{display:flex;gap:26px;margin-left:auto;font-size:13.5px;font-weight:600;color:var(--dim)}
+  .links a:hover{color:var(--paper)}
+  .nav-cta{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 18px;border-radius:999px;
+    background:var(--yel);color:var(--ink);font-size:13.5px;font-weight:800;transition:transform .16s var(--eq)}
+  .nav-cta:hover{transform:translateY(-2px)}
   @media (max-width:820px){.links{display:none}}
 
   /* buttons */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;
-    border-radius:var(--radius-full);font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;border:0;
-    transition:transform .16s var(--eq),box-shadow .16s var(--eq),background .16s}
-  .btn-primary{background:var(--text-primary);color:#fff;box-shadow:var(--shadow-md)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-  .btn-ghost{background:var(--color-neutral-0);color:var(--text-primary);border:1px solid var(--border-subtle);box-shadow:var(--shadow-sm)}
-  .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-  .btn-yellow{background:var(--color-primary-500);color:var(--text-on-primary);box-shadow:var(--shadow-md)}
-  .btn-yellow:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-  .btn-sm{min-height:44px;padding:0 18px;font-size:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 28px;
+    border-radius:999px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;border:0;transition:transform .16s var(--eq),background .16s,border-color .16s}
+  .btn-primary{background:var(--yel);color:var(--ink)}
+  .btn-primary:hover{transform:translateY(-2px);background:#fff0}
+  .btn-primary:hover{background:#ffe94d}
+  .btn-ghost{background:transparent;color:var(--paper);border:1px solid var(--line)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--paper)}
+  .btn-sm{min-height:46px;padding:0 20px;font-size:14px}
 
   /* section scaffold */
-  section{padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px)}
+  section{padding:clamp(72px,10vw,128px) clamp(20px,5vw,44px);position:relative}
   .in{max-width:var(--maxw);margin:0 auto}
-  .subtle{background:var(--bg-subtle)}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--radius-full);
-    background:var(--color-primary-100);font-size:12.5px;font-weight:800;margin-bottom:18px}
-  /* 장식용 dot 제거(anti-slop): 라벨 텍스트만 유지 */
-  .h2{font-size:clamp(28px,4.2vw,46px);letter-spacing:-.05em}
-  .lede{font-size:clamp(15px,1.7vw,18px);font-weight:600;color:var(--text-secondary);margin-top:16px;max-width:60ch}
+  .h2{font-size:clamp(30px,5vw,54px);letter-spacing:-.045em;line-height:1.04}
+  .h2 .hl{color:var(--yel)}
+  .lede{font-size:clamp(15px,1.7vw,18px);font-weight:400;color:var(--dim);margin-top:18px;max-width:60ch;line-height:1.6}
+  .head{margin-bottom:52px}
+  .head .kick{display:block;margin-bottom:16px}
 
   /* reveal */
-  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--eq),transform .7s var(--eq)}
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--eq),transform .7s var(--eq)}
   .rv.in{opacity:1;transform:none}
   .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
 
-  /* ── HERO ── */
-  .hero{position:relative;isolation:isolate;background:var(--color-primary-500);overflow:hidden;padding:0}
-  .hero::after{content:"";position:absolute;z-index:0;width:520px;height:520px;right:-150px;bottom:-300px;
-    border:74px solid rgba(255,255,255,.26);border-radius:50%}
-  .hero::before{content:"";position:absolute;z-index:0;width:180px;height:180px;left:-70px;top:40px;
-    border:40px solid rgba(255,255,255,.2);border-radius:50%}
-  .hero-in{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:clamp(48px,7vw,86px) clamp(20px,5vw,40px) clamp(56px,7vw,88px);
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,420px);gap:clamp(30px,7vw,80px);align-items:center}
-  .hero .eyebrow{background:rgba(255,255,255,.55)}
-  .hero h1{font-size:clamp(38px,6.4vw,74px);line-height:1.06;letter-spacing:-.055em}
-  .hero .sub{font-size:clamp(16px,2vw,20px);font-weight:600;margin:var(--space-lg) 0 var(--space-xl);max-width:44ch;color:#2a2a1e}
+  /* HERO */
+  .hero{min-height:92vh;display:flex;align-items:center;overflow:hidden;
+    padding-top:clamp(40px,6vw,72px)}
+  .hero::before{content:"";position:absolute;right:-14%;top:-24%;width:60vw;height:60vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(254,229,0,.10),transparent 62%);pointer-events:none}
+  .hero-in{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;width:100%;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,400px);gap:clamp(30px,6vw,72px);align-items:center;
+    padding:0 clamp(20px,5vw,44px)}
+  .hero .kick{margin-bottom:20px}
+  .hero h1{font-size:clamp(44px,9vw,104px);line-height:.96;letter-spacing:-.05em}
+  .hero h1 .hl{color:var(--yel)}
+  .hero .sub{font-size:clamp(16px,2vw,20px);color:var(--dim);margin:26px 0 30px;max-width:40ch;line-height:1.55}
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-  .hero .meta{margin-top:22px;font-size:13.5px;font-weight:700;color:#5a5320}
-  .hero .stats{display:flex;gap:28px;margin-top:30px;flex-wrap:wrap}
-  .hero .st .v{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1}
-  .hero .st .k{font-size:12.5px;font-weight:700;color:#5a5320;margin-top:6px}
+  .hero .meta{margin-top:22px;font-size:13px;font-weight:600;color:var(--faint)}
+  .stats{display:flex;gap:34px;margin-top:38px;flex-wrap:wrap}
+  .stat .v{font-family:var(--disp);font-size:clamp(30px,4.6vw,52px);color:var(--paper);line-height:1;letter-spacing:.01em}
+  .stat .v .u{color:var(--yel)}
+  .stat .k{font-size:12px;color:var(--faint);margin-top:8px;font-weight:600}
 
-  /* floating card */
-  .paycard{position:relative;padding:22px;border-radius:var(--radius-xl);background:var(--bg-elevated);
-    box-shadow:var(--shadow-lg);transform:rotate(2deg);animation:float 6s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:rotate(2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-10px)}}
-  .paycard::before{content:"";position:absolute;inset:10px -12px -12px 12px;z-index:-1;border-radius:inherit;background:rgba(25,25,25,.10)}
-  .pc-head{display:flex;align-items:center;font-size:13px;font-weight:800}
-  .pc-head .live{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--color-success-fg);font-weight:800}
-  .pc-head .live i{width:6px;height:6px;border-radius:50%;background:var(--color-success-fg)}
-  .pc-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);background:var(--bg-subtle)}
-  .pc-row .tag{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:var(--radius-full)}
-  .pc-row .tag.don{background:var(--color-success-bg);color:var(--color-success-fg)}
-  .pc-row .tag.wip{background:#FFF1D6;color:#C88A00}
-  .pc-row .tag.new{background:var(--color-primary-100);color:#8a7400}
-  .pc-row .txt{font-size:13px;font-weight:700;color:var(--text-secondary)}
-  .pc-row .txt b{color:var(--text-primary)}
-  .pc-frame{margin-top:14px;border-radius:18px;overflow:hidden;height:376px;background:#0a0a0b;border:1px solid rgba(0,0,0,.06)}
-  .pc-frame iframe{width:100%;height:100%;border:0;display:block}
-  .pc-qr{margin-top:16px;display:flex;justify-content:center}
-  .pc-qr img{width:230px;height:230px;border-radius:16px;background:#fff}
-  .pc-qtxt{margin-top:14px;text-align:center;font-size:13.5px;font-weight:600;color:var(--text-secondary)}
-  .pc-qtxt b{color:var(--text-primary);font-weight:800}
-  @media (max-width:820px){.hero-in{grid-template-columns:1fr}.paycard{max-width:420px;transform:none;animation:none}.paycard::before{inset:8px -8px -8px 8px}}
+  /* QR floating card */
+  .qrcard{position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;
+    transform:rotate(1.5deg);animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:rotate(1.5deg) translateY(0)}50%{transform:rotate(1.5deg) translateY(-9px)}}
+  .qrcard .top{display:flex;align-items:center;font-size:13px;font-weight:700}
+  .qrcard .tag{margin-left:auto;font-size:10.5px;font-weight:800;color:var(--ink);background:var(--yel);padding:4px 10px;border-radius:999px}
+  .qrcard img{width:100%;border-radius:16px;background:#fff;margin:16px 0 12px;display:block}
+  .qrcard .cap{font-size:12.5px;color:var(--dim);text-align:center;font-weight:500}
+  @media (max-width:820px){.hero-in{grid-template-columns:1fr}.qrcard{max-width:380px;transform:none;animation:none}}
 
-  /* ── feature cards ── */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-top:44px}
-  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg);margin-top:44px}
-  @media (max-width:860px){.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
-  @media (max-width:520px){.grid4{grid-template-columns:1fr}}
-  .card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);
-    padding:var(--space-xl);box-shadow:var(--shadow-sm);transition:transform .2s var(--eq),box-shadow .2s var(--eq)}
-  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
-  .ic{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:var(--color-primary-100);font-size:24px;margin-bottom:18px}
-  .card:nth-child(4n+2) .ic{background:var(--color-info-bg)}
-  .card:nth-child(4n+3) .ic{background:var(--color-success-bg)}
-  .card:nth-child(4n+4) .ic{background:#F3ECFF}
-  .card h3{font-size:20px;margin-bottom:9px;letter-spacing:-.04em}
-  .card p{font-size:14px;font-weight:500;color:var(--text-secondary);line-height:1.65}
-  .card .lnk{display:inline-block;margin-top:16px;font-size:13px;font-weight:800}
+  /* grids / cards */
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media (max-width:860px){.g3{grid-template-columns:1fr}.g4{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;
+    transition:transform .2s var(--eq),border-color .2s var(--eq),background .2s}
+  .card:hover{transform:translateY(-5px);border-color:rgba(254,229,0,.4);background:var(--panel)}
+  .ic{width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--panel-2);
+    border:1px solid var(--line);font-size:24px;margin-bottom:18px}
+  .card h3{font-size:19px;margin-bottom:9px;letter-spacing:-.03em}
+  .card p{font-size:14px;color:var(--dim);line-height:1.65}
+  .card .lnk{display:inline-block;margin-top:16px;font-size:13px;font-weight:800;color:var(--yel)}
 
-  /* ── bento grid ── */
-  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(186px,auto);gap:16px;margin-top:44px}
+  /* bento */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(186px,auto);gap:16px}
   .bento .card{margin:0;display:flex;flex-direction:column}
   .c2{grid-column:span 2}.r2{grid-row:span 2}
-  .card.big{background:var(--color-primary-50);border-color:var(--color-primary-100)}
-  .card.big .ic{width:62px;height:62px;font-size:32px;border-radius:19px;background:var(--color-primary-500)}
+  .card.big{background:linear-gradient(160deg,rgba(254,229,0,.14),var(--card) 55%);border-color:rgba(254,229,0,.35)}
+  .card.big .ic{background:var(--yel);border-color:var(--yel);font-size:30px;width:60px;height:60px}
   .card.big h3{font-size:clamp(22px,2.6vw,30px)}
-  .card.big p{font-size:15px;margin-top:4px;max-width:34ch}
-  .card.big .lnk{margin-top:auto;font-size:14px}
+  .card.big p{font-size:15px;max-width:34ch}
+  .card.big .lnk{margin-top:auto}
   @media (max-width:860px){.bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.r2{grid-row:span 1}}
   @media (max-width:520px){.bento{grid-template-columns:1fr}.c2{grid-column:span 1}}
 
-  /* process pills */
-  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;align-items:center}
-  .pills .p{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-full);
-    padding:12px 20px;font-weight:800;font-size:14.5px;box-shadow:var(--shadow-sm)}
-  .pills .p i{color:#b79e00;font-style:normal;margin-right:8px;font-weight:800}
-  .pills .arw{color:var(--text-tertiary);font-weight:800}
-
-  /* event cards */
-  .ev{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-xl);
-    box-shadow:var(--shadow-sm);position:relative;transition:transform .2s var(--eq),box-shadow .2s var(--eq)}
-  .ev:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
-  .ev .q{position:absolute;top:22px;right:24px;font-size:12px;font-weight:800;color:var(--text-tertiary)}
+  /* event */
+  .ev{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative;
+    transition:transform .2s var(--eq),border-color .2s}
+  .ev:hover{transform:translateY(-5px);border-color:rgba(254,229,0,.4)}
+  .ev .q{position:absolute;top:24px;right:26px;font-family:var(--disp);font-size:13px;color:var(--faint)}
   .ev .em{font-size:30px}
-  .ev h3{font-size:19px;margin:14px 0 6px;letter-spacing:-.04em}
-  .ev p{font-size:13.5px;font-weight:500;color:var(--text-secondary)}
+  .ev h3{font-size:19px;margin:14px 0 6px}
+  .ev p{font-size:13.5px;color:var(--dim)}
 
-  /* ── realtime / demo ── */
-  .demo{display:grid;grid-template-columns:1fr 460px;gap:clamp(28px,5vw,56px);margin-top:48px;align-items:center}
+  /* realtime / demo */
+  .demo{display:grid;grid-template-columns:1fr 372px;gap:clamp(28px,5vw,60px);align-items:center}
   @media (max-width:940px){.demo{grid-template-columns:1fr}}
   .steps{display:flex;flex-direction:column;gap:14px}
-  .step{display:flex;gap:16px;align-items:flex-start;background:var(--bg-elevated);border:1px solid var(--border-subtle);
-    border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow-sm)}
-  .step .n{width:44px;height:44px;flex:none;border-radius:14px;background:var(--color-primary-500);display:grid;place-items:center;font-weight:800;font-size:18px}
-  .step h3{font-size:16.5px;letter-spacing:-.03em}
-  .step p{font-size:13.5px;font-weight:500;color:var(--text-secondary);margin-top:3px}
-  .qrcard{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:var(--color-primary-50);border:1px solid var(--color-primary-100);
-    border-radius:var(--radius-lg);padding:20px;margin-top:16px}
-  .qrcard img{width:208px;height:208px;border-radius:18px;background:#fff;box-shadow:var(--shadow-md);padding:10px}
-  .qrcard>div{flex:1;min-width:180px}
-  .qrcard h3{font-size:15px;letter-spacing:-.03em}
-  .qrcard .hint{font-size:12.5px;font-weight:600;color:var(--text-secondary);margin-top:6px}
+  .step{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .step .n{font-family:var(--disp);width:44px;height:44px;flex:none;border-radius:12px;background:var(--yel);color:var(--ink);display:grid;place-items:center;font-size:18px}
+  .step h3{font-size:16.5px}
+  .step p{font-size:13.5px;color:var(--dim);margin-top:3px}
+  .qrmini{display:flex;gap:16px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:16px}
+  .qrmini img{width:92px;height:92px;border-radius:12px;background:#fff}
+  .qrmini h3{font-size:14.5px}
+  .qrmini .h{font-size:12px;color:var(--dim);margin-top:5px}
   .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-
-  /* device / browser frames */
-  .phone{justify-self:center;width:440px;max-width:100%;background:#111;border-radius:46px;padding:14px;box-shadow:var(--shadow-lg)}
-  .phone .scr{border-radius:34px;overflow:hidden;background:#0a0a0b;height:720px;position:relative}
+  .phone{justify-self:center;width:340px;max-width:100%;background:#000;border:1px solid var(--line);border-radius:40px;padding:11px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .phone .scr{border-radius:30px;overflow:hidden;background:#0a0a0b;height:640px;position:relative}
   .phone iframe{width:100%;height:100%;border:0;display:block}
-  .phone .cap{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);
-    color:#191919;font-size:11.5px;font-weight:800;padding:7px 14px;border-radius:var(--radius-full);box-shadow:var(--shadow-sm);white-space:nowrap;z-index:2;pointer-events:none}
+  .phone .cap{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:var(--yel);color:var(--ink);font-size:11.5px;font-weight:800;padding:7px 14px;border-radius:999px;white-space:nowrap;z-index:2;pointer-events:none}
 
-  .dash{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--space-xl);margin-top:48px;align-items:start}
-  @media (max-width:940px){.dash{grid-template-columns:1fr}}
-  .browser{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border-subtle);background:#0a0a0b}
-  .bbar{display:flex;align-items:center;gap:8px;background:#fff;border-bottom:1px solid var(--border-subtle);padding:11px 14px}
+  /* dashboard 16:9 */
+  .browser{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0a0a0b}
+  .bbar{display:flex;align-items:center;gap:8px;background:var(--panel);border-bottom:1px solid var(--line);padding:11px 14px}
   .bbar .dots{display:flex;gap:6px}
-  .bbar .dots i{width:11px;height:11px;border-radius:50%;background:#e0e0dc}
-  .bbar .dots i:first-child{background:#ff6159}.bbar .dots i:nth-child(2){background:#ffbd2e}.bbar .dots i:nth-child(3){background:#28c840}
-  .bbar .u{margin-left:6px;font-size:12px;font-weight:700;color:var(--text-tertiary)}
-  .bbar .live{margin-left:auto;font-size:11px;font-weight:800;color:var(--color-success-fg)}
+  .bbar .dots i{width:11px;height:11px;border-radius:50%;background:#333}
+  .bbar .dots i:first-child{background:#FF5A52}.bbar .dots i:nth-child(2){background:#F0B429}.bbar .dots i:nth-child(3){background:#3CFF5D}
+  .bbar .u{margin-left:6px;font-size:12px;font-weight:600;color:var(--faint)}
+  .bbar .live{margin-left:auto;font-size:11px;font-weight:800;color:var(--yel)}
   .bwin{aspect-ratio:16/9;overflow:hidden}
   .bwin iframe{width:100%;height:100%;border:0;display:block}
-  .featgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+  .featgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
   @media (max-width:860px){.featgrid{grid-template-columns:1fr 1fr}}
   @media (max-width:520px){.featgrid{grid-template-columns:1fr}}
-  .featgrid .f{flex-direction:column}
-  .featgrid .f .fi{margin-bottom:6px}
-  .feat{display:flex;flex-direction:column;gap:14px}
-  .feat .f{display:flex;gap:15px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow-sm)}
-  .feat .f .fi{width:48px;height:48px;flex:none;border-radius:15px;background:var(--color-primary-100);display:grid;place-items:center;font-size:21px}
-  .feat .f:nth-child(2) .fi{background:var(--color-info-bg)}.feat .f:nth-child(3) .fi{background:var(--color-success-bg)}.feat .f:nth-child(4) .fi{background:#F3ECFF}
-  .feat .f h3{font-size:16px;letter-spacing:-.03em}
-  .feat .f p{font-size:13.5px;font-weight:500;color:var(--text-secondary);margin-top:3px}
+  .featgrid .f .ic{width:46px;height:46px;font-size:20px;margin-bottom:14px}
+  .featgrid .f h3{font-size:16px}
+  .featgrid .f p{font-size:13px;color:var(--dim);margin-top:4px}
 
   /* cost */
-  .cost{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--space-xl);margin-top:44px;align-items:start}
+  .cost{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
   @media (max-width:940px){.cost{grid-template-columns:1fr}}
-  .tbcard{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .tbcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
   table.tb{width:100%;border-collapse:collapse;font-size:14.5px}
-  table.tb td{padding:13px 20px;border-bottom:1px solid var(--border-subtle)}
+  table.tb td{padding:13px 20px;border-bottom:1px solid var(--line-2);color:var(--paper)}
   table.tb td.r{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
-  table.tb tr.sum td{background:var(--bg-subtle);font-weight:800}
-  table.tb tr.total td{background:var(--text-primary);color:#fff;font-weight:800;font-size:15.5px}
-  table.tb tr.total td .y{color:var(--color-primary-500)}
-  table.tb tr.minus td{color:#c0562f;font-weight:700}
+  table.tb tr.sum td{background:var(--panel-2);font-weight:800}
+  table.tb tr.total td{background:var(--yel);color:var(--ink);font-weight:800;font-size:15.5px}
+  table.tb tr.minus td{color:#FF8B6B}
   table.tb tr:last-child td{border-bottom:0}
-  .cp{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:22px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
-  .cp .n{font-size:12px;font-weight:800;color:#b79e00}
-  .cp h3{font-size:16px;margin:8px 0 6px;letter-spacing:-.03em}
-  .cp p{font-size:13.5px;font-weight:500;color:var(--text-secondary)}
-  .cp.hl{background:var(--text-primary);color:#fff}
-  .cp.hl .n{color:var(--color-primary-500)} .cp.hl p{color:#cececa}
-  .costnote{font-size:12.5px;font-weight:600;color:var(--text-tertiary);margin-top:14px}
+  .cp{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:14px}
+  .cp .n{font-family:var(--disp);font-size:14px;color:var(--yel)}
+  .cp h3{font-size:16px;margin:8px 0 6px}
+  .cp p{font-size:13.5px;color:var(--dim)}
+  .cp.hl{background:linear-gradient(160deg,rgba(254,229,0,.14),var(--card) 60%);border-color:rgba(254,229,0,.35)}
+  .costnote{font-size:12.5px;color:var(--faint);margin-top:14px}
 
-  .callout{margin-top:28px;background:var(--color-primary-50);border:1px solid var(--color-primary-100);border-radius:var(--radius-lg);
-    padding:20px 24px;font-size:15px;font-weight:700;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-  .callout .b{font-size:12px;background:var(--text-primary);color:#fff;padding:5px 12px;border-radius:var(--radius-full);font-weight:800}
+  .callout{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--yel);
+    border-radius:14px;padding:20px 24px;font-size:15px;font-weight:600;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .callout .b{font-family:var(--disp);font-size:12px;letter-spacing:.06em;color:var(--ink);background:var(--yel);padding:5px 12px;border-radius:999px}
+  .callout b{color:var(--paper);font-weight:800}
 
-  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-top:44px}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
   @media (max-width:860px){.nums{grid-template-columns:1fr}}
-  .nn{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-sm)}
-  .nn .n{width:44px;height:44px;border-radius:14px;background:var(--color-primary-500);display:grid;place-items:center;font-weight:800;font-size:16px;margin-bottom:14px}
-  .nn h3{font-size:16.5px;margin-bottom:7px;letter-spacing:-.03em}
-  .nn p{font-size:13.5px;font-weight:500;color:var(--text-secondary)}
+  .nn{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .nn .n{font-family:var(--disp);font-size:30px;color:var(--yel);line-height:1;margin-bottom:14px}
+  .nn h3{font-size:16.5px;margin-bottom:7px}
+  .nn p{font-size:13.5px;color:var(--dim)}
 
   /* close */
-  .close{position:relative;isolation:isolate;background:var(--color-primary-500);overflow:hidden;text-align:center}
-  .close::after{content:"";position:absolute;z-index:0;width:460px;height:460px;left:-160px;top:-260px;border:70px solid rgba(255,255,255,.24);border-radius:50%}
+  .close{text-align:center;overflow:hidden}
+  .close::before{content:"";position:absolute;left:-12%;top:-30%;width:44vw;height:44vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(254,229,0,.10),transparent 62%);pointer-events:none}
   .close .in{position:relative;z-index:1}
-  .close h2{font-size:clamp(34px,6vw,64px);letter-spacing:-.05em;line-height:1.05}
-  .close .sub{font-size:15px;font-weight:700;margin-top:18px;color:#5a5320}
-  .close .acts{justify-content:center;margin-top:30px}
-  footer{background:var(--text-primary);color:#8a8a8a;text-align:center;padding:26px;font-size:12.5px;font-weight:600}
+  .close h2{font-size:clamp(38px,8vw,88px);letter-spacing:-.05em;line-height:1.0}
+  .close h2 .hl{color:var(--yel)}
+  .close .sub{color:var(--dim);margin-top:20px;font-size:15px;font-weight:600}
+  .close .acts{justify-content:center;margin-top:34px}
+  footer{border-top:1px solid var(--line-2);color:var(--faint);text-align:center;padding:28px;font-size:12.5px;font-weight:500}
 
-  @media (prefers-reduced-motion:reduce){
-    .rv{opacity:1;transform:none;transition:none}
-    .paycard{animation:none}
-    html{scroll-behavior:auto}
-  }
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.qrcard{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -271,7 +226,7 @@
 <!-- NAV -->
 <div class="nav">
   <div class="nav-in">
-    <div class="logo"><span class="bmk" aria-hidden="true"><svg viewBox="0 0 120 108"><path d="M60 6 C26 6 8 25 8 48 C8 64 18 78 35 85 C33 94 28 100 21 104 C35 103 49 98 58 89 C58.7 89 59.3 89 60 89 C94 89 112 69 112 48 C112 25 94 6 60 6 Z"/></svg></span><b>Linkagelab</b> × kakaopay</div>
+    <div class="logo">Linkagelab <span class="x">×</span> <span class="k">kakaopay</span></div>
     <nav class="links">
       <a href="#service">서비스</a>
       <a href="#realtime">실시간 대응</a>
@@ -286,9 +241,9 @@
 <!-- HERO -->
 <header class="hero">
   <div class="hero-in">
-    <div class="copy">
-      <div class="eyebrow rv in">SNACK CURATION · 2026</div>
-      <h1 class="rv in">매일이 이벤트가<br>되는 스낵마켓</h1>
+    <div>
+      <span class="kick rv in">Snack Curation · 2026</span>
+      <h1 class="rv in">매일이 이벤트가<br>되는 <span class="hl">스낵마켓</span></h1>
       <p class="sub rv in d1">구성원 취향과 시즌감을 담은 큐레이션. 실시간 소통으로 빈틈없이 운영합니다.</p>
       <div class="hero-actions rv in d2">
         <a class="btn btn-primary" href="#realtime">접수 화면 체험하기</a>
@@ -296,16 +251,16 @@
       </div>
       <div class="meta rv in d2">카카오페이 판교 아지트 · 10층~15층</div>
       <div class="stats rv in d3">
-        <div class="st"><div class="v num" data-count="3">0</div><div class="k">운영 지역</div></div>
-        <div class="st"><div class="v num" data-count="28">0</div><div class="k">관리 스팟</div></div>
-        <div class="st"><div class="v">일 2회</div><div class="k">정기 진열</div></div>
-        <div class="st"><div class="v num" data-count="6" data-suffix="+">0</div><div class="k">시즌 이벤트</div></div>
+        <div class="stat"><div class="v num">3</div><div class="k">운영 지역</div></div>
+        <div class="stat"><div class="v num">28</div><div class="k">관리 스팟</div></div>
+        <div class="stat"><div class="v">일<span class="u">2</span>회</div><div class="k">정기 진열</div></div>
+        <div class="stat"><div class="v num">6<span class="u">+</span></div><div class="k">시즌 이벤트</div></div>
       </div>
     </div>
-    <div class="paycard rv in d1" aria-label="크루 보이스 접수 QR">
-      <div class="pc-head">🍫 크루 보이스 접수 <span class="live"><i></i>QR 체험</span></div>
-      <div class="pc-qr"><img src="qr.png" alt="크루 보이스 접수 QR 코드" /></div>
-      <div class="pc-qtxt">카메라로 스캔하면 <b>실제 접수 화면</b>이 열립니다</div>
+    <div class="qrcard rv in d1">
+      <div class="top">🍫 크루 보이스 접수 <span class="tag">QR 체험</span></div>
+      <img src="qr.png" alt="크루 보이스 접수 QR 코드" />
+      <div class="cap">카메라로 스캔하면 실제 접수 화면이 열립니다</div>
     </div>
   </div>
 </header>
@@ -313,31 +268,25 @@
 <!-- SERVICE -->
 <section id="service">
   <div class="in">
-    <div class="rv"><div class="eyebrow">SERVICE</div>
+    <div class="head rv"><span class="kick">01 Service</span>
     <h2 class="h2">스낵 큐레이션 서비스</h2>
     <p class="lede">구성원 취향, 위생, 데이터, ESG까지. 스낵바 운영의 모든 축을 한 팀이 책임집니다.</p></div>
     <div class="bento">
       <a href="#event" class="card big c2 r2 rv"><div class="ic">✨</div><h3>맞춤형 큐레이션</h3><p>구성원 선호도와 계절감을 반영한 시즌별 이벤트·맞춤 간식 구성으로, 매 분기 새로운 스낵 경험을 설계합니다.</p><span class="lnk">이벤트 아카이브 보기 ›</span></a>
       <div class="card rv d1"><div class="ic">🧼</div><h3>위생 관리</h3><p>정기 클렌징·설비 점검으로 안정적 환경 유지</p></div>
       <div class="card rv d2"><div class="ic">📊</div><h3>데이터 재고관리</h3><p>발주·재고 현황 투명 공유로 운영 최적화</p></div>
-      <a href="#esg" class="card c2 rv d3"><div class="ic">🌱</div><h3>ESG 친환경 운영</h3><p>친환경 부자재·장애인 크루 운영으로 ESG 가치 실현 · 지속가능한 스낵바</p></a>
-    </div>
-    <div class="pills rv">
-      <span class="p"><i>01</i>수요 조사</span><span class="arw">→</span>
-      <span class="p"><i>02</i>소싱 &amp; 큐레이션</span><span class="arw">→</span>
-      <span class="p"><i>03</i>입고 · 진열</span><span class="arw">→</span>
-      <span class="p"><i>04</i>재고 관리</span>
+      <a href="#esg" class="card c2 rv d3"><div class="ic">🌱</div><h3>ESG 친환경 운영</h3><p>친환경 부자재·장애 크루 직접 고용으로 ESG 가치 실현 · 지속가능한 스낵바</p></a>
     </div>
   </div>
 </section>
 
 <!-- EVENT -->
-<section id="event" class="subtle">
+<section id="event">
   <div class="in">
-    <div class="rv"><div class="eyebrow">EVENT ARCHIVE</div>
-    <h2 class="h2">이벤트, 순간들</h2>
+    <div class="head rv"><span class="kick">02 Event Archive</span>
+    <h2 class="h2">이벤트, <span class="hl">순간들</span></h2>
     <p class="lede">단순한 간식이 아니라, 매 분기 새로운 이야기를 만듭니다. 다음 시즌은 카카오페이와 함께 기획합니다.</p></div>
-    <div class="grid3">
+    <div class="g3">
       <div class="ev rv"><span class="q">25 Q1</span><div class="em">🧧</div><h3>구정 한과</h3><p>전통 한과·유과 큐레이션 · 새해 인사 카드 동봉</p></div>
       <div class="ev rv d1"><span class="q">25 Q2</span><div class="em">🍬</div><h3>추억의 불량식품</h3><p>쫀드기·아폴로·짱구 · 추억 오브제 20종</p></div>
       <div class="ev rv d2"><span class="q">25 Q3</span><div class="em">🥗</div><h3>저칼로리 간식</h3><p>그릭요거트·프로틴바 · 200kcal 이하 라인업</p></div>
@@ -351,8 +300,8 @@
 <!-- REALTIME / DEMO -->
 <section id="realtime">
   <div class="in">
-    <div class="rv"><div class="eyebrow">REAL-TIME RESPONSE</div>
-    <h2 class="h2">빠른 소통, 즉각 대응</h2>
+    <div class="head rv"><span class="kick">03 Real-Time Response</span>
+    <h2 class="h2">빠른 소통, <span class="hl">즉각 대응</span></h2>
     <p class="lede">QR로 접수 → 총무 동시 확인 → 현장 즉각 대응. 오른쪽 화면에서 실제 접수 페이지를 지금 바로 작성해보세요.</p></div>
     <div class="demo">
       <div class="rv">
@@ -361,9 +310,9 @@
           <div class="step"><span class="n">2</span><div><h3>총무 담당자 동시 확인</h3><p>접수 즉시 관리자 대시보드에 알림, 실시간 파악</p></div></div>
           <div class="step"><span class="n">3</span><div><h3>현장 즉각 조치</h3><p>확인부터 조치·완료까지 상태를 투명하게 기록</p></div></div>
         </div>
-        <div class="qrcard">
+        <div class="qrmini">
           <img src="qr.png" alt="크루 보이스 접수 QR 코드" />
-          <div><h3>QR을 스캔하면 접수 화면이 열립니다</h3><p class="hint">모바일 카메라로 스캔하거나, 오른쪽 화면에서 바로 체험하세요.</p></div>
+          <div><h3>QR을 스캔하면 접수 화면이 열립니다</h3><p class="h">모바일 카메라로 스캔하거나, 오른쪽 화면에서 바로 체험하세요.</p></div>
         </div>
         <div class="acts">
           <a class="btn btn-primary btn-sm" href="./" target="_blank" rel="noopener">접수 화면 새 탭에서 열기 ↗</a>
@@ -381,20 +330,20 @@
 </section>
 
 <!-- DASHBOARD -->
-<section id="dashboard" class="subtle">
+<section id="dashboard">
   <div class="in">
-    <div class="rv"><div class="eyebrow">DASHBOARD</div>
-    <h2 class="h2">담당자를 위한, 편한 관리</h2>
+    <div class="head rv"><span class="kick">04 Dashboard</span>
+    <h2 class="h2">담당자를 위한, <span class="hl">편한 관리</span></h2>
     <p class="lede">복잡한 보고 없이, 대시보드 하나로 매입·재고·예산·설비 이슈까지 한눈에. 아래는 실제 데모 대시보드입니다.</p></div>
-    <div class="browser rv" style="margin-top:44px">
+    <div class="browser rv">
       <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="u">스낵바 운영 대시보드 · PC</span><span class="live">● LIVE 데모</span></div>
       <div class="bwin"><iframe src="admin.html?embed=1&view=ops" title="운영 대시보드 데모" loading="lazy"></iframe></div>
     </div>
     <div class="featgrid rv d1">
-      <div class="f"><div class="fi">📊</div><div><h3>실시간 대시보드</h3><p>매입·재고·예산·설비 이슈를 한 화면에서 매일 확인</p></div></div>
-      <div class="f"><div class="fi">📱</div><div><h3>스낵바 넘버스앱</h3><p>층별·품목별 진열 수량을 앱에서 바로 조회</p></div></div>
-      <div class="f"><div class="fi">🔄</div><div><h3>자동 발주 프로세스</h3><p>재고 소진 전 선제 보충으로 재고 공백 제로</p></div></div>
-      <div class="f"><div class="fi">💰</div><div><h3>예산 초과 없는 관리</h3><p>월 사용률·잔여 예산을 실시간으로 조절</p></div></div>
+      <div class="card f"><div class="ic">📊</div><h3>실시간 대시보드</h3><p>매입·재고·예산·설비 이슈를 한 화면에서 매일 확인</p></div>
+      <div class="card f"><div class="ic">📱</div><h3>스낵바 넘버스앱</h3><p>층별·품목별 진열 수량을 앱에서 바로 조회</p></div>
+      <div class="card f"><div class="ic">🔄</div><h3>자동 발주 프로세스</h3><p>재고 소진 전 선제 보충으로 재고 공백 최소화</p></div>
+      <div class="card f"><div class="ic">💰</div><h3>예산 관리</h3><p>월 사용률·잔여 예산을 실시간으로 조절</p></div>
     </div>
   </div>
 </section>
@@ -402,29 +351,23 @@
 <!-- TRANSPARENCY -->
 <section id="transparency">
   <div class="in">
-    <div class="rv"><div class="eyebrow">TRANSPARENCY</div>
-    <h2 class="h2">더 투명하게, 데이터로</h2>
+    <div class="head rv"><span class="kick">05 Transparency</span>
+    <h2 class="h2">더 투명하게, <span class="hl">데이터로</span></h2>
     <p class="lede">비용 지출·재고 현황·매입 현황까지, 운영 데이터를 기반으로 예산 맞춤형 운영 구조를 설계합니다.</p></div>
-    <div class="grid3">
+    <div class="g3">
       <div class="card rv"><div class="ic">💳</div><h3>비용 지출</h3><p>월별 집행 내역을 카테고리·스팟별 리포트로 정기 제공</p></div>
       <div class="card rv d1"><div class="ic">📦</div><h3>재고 현황</h3><p>월별 재고 현황 및 주요 소진 품목 공유</p></div>
       <div class="card rv d2"><div class="ic">🧾</div><h3>매입 현황</h3><p>원두·부자재 매입 단가·수량·거래처를 투명하게 관리</p></div>
-    </div>
-    <div class="pills rv">
-      <span class="p"><i>Q1</i>분기 운영 리포트</span><span class="arw">→</span>
-      <span class="p"><i>Q2</i>위생 점검</span><span class="arw">→</span>
-      <span class="p"><i>Q3</i>ESG 그린</span><span class="arw">→</span>
-      <span class="p"><i>Q4</i>고객사 맞춤</span>
     </div>
   </div>
 </section>
 
 <!-- COST -->
-<section id="cost" style="background:var(--color-primary-50)">
+<section id="cost">
   <div class="in">
-    <div class="rv"><div class="eyebrow" style="background:#fff">COST PROPOSAL</div>
+    <div class="head rv"><span class="kick">06 Cost Proposal</span>
     <h2 class="h2">운영비 제안</h2>
-    <p class="lede" style="color:#6a5f28">카카오페이 1~5월 평균 집행 기준 · 부가세 미포함</p></div>
+    <p class="lede">카카오페이 1~5월 평균 집행 기준 · 부가세 미포함</p></div>
     <div class="cost">
       <div class="rv">
         <div class="tbcard">
@@ -441,7 +384,7 @@
             <tr><td>고정 인건비</td><td class="r">9,424,000</td></tr>
             <tr class="sum"><td>총합계</td><td class="r">69,017,586</td></tr>
             <tr class="minus"><td>(−) 장애인 고용 감면 (월, 추정)</td><td class="r">△ 4,860,000</td></tr>
-            <tr class="total"><td>실질 부담 (감면 반영·월)</td><td class="r"><span class="y">64,157,586원</span></td></tr>
+            <tr class="total"><td>실질 부담 (감면 반영·월)</td><td class="r">64,157,586원</td></tr>
           </table>
         </div>
         <p class="costnote">* 실비 기반 투명 정산 · 운영(링키지랩)과 납품(소싱) 역할 분리</p>
@@ -449,7 +392,7 @@
       <div class="rv d1">
         <div class="cp"><div class="n">01</div><h3>카카오 연계 소싱 단가 안정화</h3><p>품목 구성·용량·발주 구조 최적화로 품질은 유지하며 비용 효율화</p></div>
         <div class="cp"><div class="n">02</div><h3>상주 운영으로 관리 강화</h3><p>8h 2명(비장애1·중증1) + 4h 중증1 상주 운영</p></div>
-        <div class="cp hl"><div class="n">EFFECT</div><h3>예측 가능한 집행 구조</h3><p>인건비·운영 실비가 커버되는 구조로 월 지출·재고를 안정적으로 측정·집행</p></div>
+        <div class="cp hl"><div class="n">Effect</div><h3>예측 가능한 집행 구조</h3><p>인건비·운영 실비가 커버되는 구조로 월 지출·재고를 안정적으로 측정·집행</p></div>
       </div>
     </div>
   </div>
@@ -458,30 +401,30 @@
 <!-- EFFECTS -->
 <section id="effects">
   <div class="in">
-    <div class="rv"><div class="eyebrow">EXPECTED EFFECTS</div>
+    <div class="head rv"><span class="kick">07 Expected Effects</span>
     <h2 class="h2">서비스 기대 효과</h2></div>
-    <div class="grid3">
+    <div class="g3">
       <div class="card rv"><div class="ic">📈</div><h3>운영 품질 향상</h3><p>상주 운영 기반 빠른 소통으로 진열·위생·품질 관리 안정화</p></div>
       <div class="card rv d1"><div class="ic">😊</div><h3>구성원 만족도</h3><p>맞춤형 큐레이션·안정적 운영으로 이용 만족도·체감 향상</p></div>
       <div class="card rv d2"><div class="ic">💰</div><h3>안정적 단가 운영</h3><p>카카오 운영 연계 구조 기반 소싱 단가·운영 비용 안정화</p></div>
     </div>
-    <div class="callout rv"><span class="b">NEW</span>복지 서비스 통합 시너지 : 총무 · 헬스키퍼 · 카페사업 <b>+ 스낵마켓</b> = 복지 시너지 🤝</div>
-    <div class="nums" style="margin-top:52px">
-      <div class="nn rv"><div class="n">01</div><h3>품절 사전 방지</h3><p>재고 소진 전 선제 보충으로 진열 공백·품절 원천 차단</p></div>
+    <div class="callout rv"><span class="b">New</span>복지 서비스 통합 시너지 : 총무 · 헬스키퍼 · 카페사업 <b>+ 스낵마켓</b> = 복지 시너지 🤝</div>
+    <div class="nums">
+      <div class="nn rv"><div class="n">01</div><h3>품절 사전 방지</h3><p>재고 소진 전 선제 보충으로 진열 공백·품절 최소화</p></div>
       <div class="nn rv d1"><div class="n">02</div><h3>변경사항 사전 공유</h3><p>미입고·단종·변경 발생 즉시 담당자 소통방에 선제 통보</p></div>
       <div class="nn rv d2"><div class="n">03</div><h3>원인·조치 투명 기록</h3><p>이슈 발생부터 조치까지 리포트로 투명하게 공유</p></div>
     </div>
-    <div class="callout rv"><span class="b">차별화</span>사후 확인(현행) → <b>사전 공유(링키지랩)</b> · 이용자 불편 발생 전에 대응</div>
+    <div class="callout rv"><span class="b">차별화</span>사후 확인(현행) → <b>사전 공유(링키지랩)</b> · 이용 불편 발생 전에 대응</div>
   </div>
 </section>
 
 <!-- ESG -->
-<section id="esg" class="subtle">
+<section id="esg">
   <div class="in">
-    <div class="rv"><div class="eyebrow">ESG IMPACT</div>
-    <h2 class="h2">장애인 고용 · 사회적 가치</h2>
-    <p class="lede">스낵바 운영에 장애 크루를 고용해 지속가능한 일자리를 창출하고, ESG 성과로 연결합니다.</p></div>
-    <div class="grid3">
+    <div class="head rv"><span class="kick">08 ESG Impact</span>
+    <h2 class="h2">장애인 고용 · <span class="hl">사회적 가치</span></h2>
+    <p class="lede">스낵바 운영에 장애 크루를 직접 고용해 지속가능한 일자리를 창출하고, ESG 성과로 연결합니다.</p></div>
+    <div class="g3">
       <div class="card rv"><div class="ic">🧑‍🦽</div><h3>장애인 일자리</h3><p>스낵바 운영에 장애 크루 고용 · 지속가능한 일자리 창출</p></div>
       <div class="card rv d1"><div class="ic">📉</div><h3>고용부담금 절감</h3><p>장애인 고용 확대에 따른 고용부담금 감면 효과</p></div>
       <div class="card rv d2"><div class="ic">📑</div><h3>ESG 성과 반영</h3><p>ESG 보고서·대내 인식개선 등 정성·정량 성과로 활용</p></div>
@@ -493,7 +436,7 @@
 <!-- CLOSE -->
 <section class="close">
   <div class="in rv">
-    <h2>맛있는 하루를<br>링키지랩과 함께</h2>
+    <h2>맛있는 하루를<br><span class="hl">링키지랩</span>과 함께</h2>
     <p class="sub">링키지랩 복지큐레이션부 · 스낵&amp;가든사업팀</p>
     <div class="acts">
       <a class="btn btn-primary" href="#realtime">접수 화면 체험하기</a>
@@ -505,18 +448,13 @@
 
 <script>
   var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!RM){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
-    document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)});
-  }else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});}
-
-  function countUp(el){var t=+el.dataset.count,suf=el.dataset.suffix||'',dur=900,t0=null;
-    if(RM){el.textContent=t+suf;return;}
-    function tick(x){if(!t0)t0=x;var p=Math.min((x-t0)/dur,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(tick);}
-    requestAnimationFrame(tick);}
+  if(!RM){ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)}); }
+  else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});}
+  function countUp(el){var t=+el.dataset.count,suf=el.dataset.suffix||'',dur=900,t0=null; if(RM){el.textContent=t+suf;return;}
+    function tick(x){if(!t0)t0=x;var p=Math.min((x-t0)/dur,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(tick);} requestAnimationFrame(tick);}
   var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}});},{threshold:.5});
   document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
-
   var prog=document.getElementById('prog');
   addEventListener('scroll',function(){var h=document.documentElement,s=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(s*100)+'%';},{passive:true});
 </script>
