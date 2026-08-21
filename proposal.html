@@ -86,11 +86,12 @@
   .qrcard .c{font-size:12.5px;color:var(--sub);text-align:center}
 
   /* service: divider list */
-  .rows{border-top:1px solid var(--line)}
-  .row{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(16px,4vw,60px);padding:40px 0;border-bottom:1px solid var(--line);align-items:baseline}
-  .row h3{font-size:clamp(19px,2.2vw,24px);letter-spacing:-.03em}
-  .row p{font-size:15px;color:var(--sub);line-height:1.6}
-  @media (max-width:680px){.row{grid-template-columns:1fr;gap:8px}}
+  .rows{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 28px;transition:transform .18s var(--eq),box-shadow .18s var(--eq),border-color .18s}
+  .row:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,.07);border-color:#dad9d0}
+  .row h3{font-size:clamp(18px,2vw,22px);letter-spacing:-.03em;margin-bottom:10px}
+  .row p{font-size:14.5px;color:var(--sub);line-height:1.6}
+  @media (max-width:680px){.rows{grid-template-columns:1fr}}
   .flow{margin-top:38px;font-size:15px;font-weight:700;color:var(--ink);display:flex;flex-wrap:wrap;gap:12px;align-items:center}
   .flow .s{color:var(--faint);font-weight:800}
   .flow b{font-weight:800}
@@ -114,13 +115,26 @@
   .cell:nth-child(5){background:#B79CFF;color:#241640}
   .cell:nth-child(6){background:#23C3C3;color:#063230}
   @media (max-width:760px){.events{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}.events-track{transform:none!important}.cell{flex:0 0 82%;scroll-snap-align:center}}
+  /* event pin (desktop): 모든 카드 본 뒤 스크롤 진행 */
+  @media (min-width:761px){
+    section.event-pin{padding-top:0;padding-bottom:0;height:300vh;scroll-snap-align:none}
+    .event-pin .event-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+    .event-pin .event-sticky .in{margin-bottom:32px}
+    .event-pin .events{padding:0 clamp(20px,5vw,44px)}
+  }
+  /* 장면 스냅: 섹션마다 끊어서 멈춤 */
+  @media (min-width:761px) and (prefers-reduced-motion:no-preference){
+    html{scroll-snap-type:y proximity}
+    section,header.hero{scroll-snap-align:start}
+    section.event-pin{scroll-snap-align:start}
+  }
 
   /* realtime */
   .demo{display:grid;grid-template-columns:1fr 340px;gap:clamp(28px,5vw,56px);align-items:center;margin-top:4px}
   @media (max-width:940px){.demo{grid-template-columns:1fr}}
   .steps{counter-reset:st}
-  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline}
-  .step:first-child{border-top:1px solid var(--line)}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:20px 22px;align-items:baseline;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;transition:transform .16s var(--eq),box-shadow .16s}
+  .step:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.06)}
   .step .n{counter-increment:st;font-family:var(--kr);font-weight:800;font-size:15px;color:var(--ink);width:30px;height:30px;border:1px solid var(--ink);border-radius:8px;display:grid;place-items:center}
   .step .n::before{content:counter(st)}
   .step h3{font-size:16.5px}
@@ -142,23 +156,22 @@
   .bbar .u{font-size:12px;font-weight:600;color:var(--faint);margin-left:4px}
   .bbar .live{margin-left:auto;font-size:11px;font-weight:700;color:var(--sub)}
   .bwin{aspect-ratio:16/9;overflow:hidden}.bwin iframe{width:100%;height:100%;border:0;display:block}
-  .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;border-top:1px solid var(--line)}
+  .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
   @media (max-width:760px){.feat{grid-template-columns:1fr 1fr}}
-  .feat .f{padding:30px 22px 30px 0;border-right:1px solid var(--line)}
-  .feat .f:last-child{border-right:0}
+  @media (max-width:480px){.feat{grid-template-columns:1fr}}
+  .feat .f{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .16s var(--eq),box-shadow .16s}
+  .feat .f:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.06)}
   .feat .f h3{font-size:15.5px}
-  .feat .f p{font-size:13px;color:var(--sub);margin-top:6px}
-  @media (max-width:760px){.feat .f{border-right:0;border-bottom:1px solid var(--line);padding:24px 0}}
+  .feat .f p{font-size:13px;color:var(--sub);margin-top:8px}
 
   /* two-col simple (transparency / effects) */
-  .g2col{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+  .g2col{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:760px){.g2col{grid-template-columns:1fr}}
-  .g2col .it{padding:40px 26px 40px 0;border-right:1px solid var(--line)}
-  .g2col .it:last-child{border-right:0}
+  .g2col .it{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;transition:transform .18s var(--eq),box-shadow .18s var(--eq),border-color .18s}
+  .g2col .it:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,.07);border-color:#dad9d0}
   .g2col .it .no{font-size:13px;font-weight:800;color:#B39B00}
-  .g2col .it h3{font-size:17.5px;margin:8px 0 8px}
-  .g2col .it p{font-size:14px;color:var(--sub)}
-  @media (max-width:760px){.g2col .it{border-right:0;border-bottom:1px solid var(--line);padding:26px 0}}
+  .g2col .it h3{font-size:17.5px;margin:10px 0 8px}
+  .g2col .it p{font-size:14px;color:var(--sub);line-height:1.6}
 
   /* cost */
   .cost{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
@@ -172,8 +185,8 @@
   table.tb tr.total td .y{color:var(--yel)}
   table.tb tr.minus td{color:#B0442A}
   table.tb tr:last-child td{border-bottom:0}
-  .cp{padding:32px 0;border-bottom:1px solid var(--line)}
-  .cp:first-child{border-top:1px solid var(--line)}
+  .cp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:12px;transition:transform .16s var(--eq),box-shadow .16s}
+  .cp:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.06)}
   .cp .no{font-size:13px;font-weight:800;color:#B39B00}
   .cp h3{font-size:16px;margin:7px 0 6px}
   .cp p{font-size:13.5px;color:var(--sub)}
@@ -188,10 +201,10 @@
   @media (max-width:860px){.esgwrap{grid-template-columns:1fr}}
   .esgwrap .big{font-family:var(--kr);font-weight:800;font-size:clamp(24px,3vw,34px);line-height:1.3;letter-spacing:-.03em}
   .esgwrap .big em{font-style:normal;background:linear-gradient(transparent 62%,var(--yel) 62%)}
-  .esgstat{border-top:1px solid var(--line)}
-  .esgstat .r{display:flex;flex-direction:column;gap:7px;padding:18px 0;border-bottom:1px solid var(--line)}
-  .esgstat .r .k{font-size:13px;font-weight:600;color:var(--faint)}
-  .esgstat .r .v{font-weight:800;font-size:18px;color:var(--ink);letter-spacing:-.02em}
+  .esgstat{display:grid;gap:10px}
+  .esgstat .r{display:flex;flex-direction:column;gap:6px;padding:15px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:12px}
+  .esgstat .r .k{font-size:12.5px;font-weight:600;color:rgba(242,239,227,.55)}
+  .esgstat .r .v{font-weight:800;font-size:17px;color:#fff;letter-spacing:-.02em}
 
   /* workspace photo scene (black) */
   .workspace{background:#0B0B0B;color:#F2EFE3;position:relative;overflow:hidden}
@@ -299,12 +312,12 @@
   </div>
 </section>
 
-<!-- EVENT -->
-<section id="event" class="sec-dark">
-  <div class="in">
-    <div class="head rv"><h2 class="h2">이벤트, <span class="hl">순간들</span></h2>
-    <p class="lede">단순한 간식이 아니라, 매 분기 새로운 이야기를 만듭니다. 다음 시즌은 카카오페이와 함께 기획합니다.</p></div>
-    <div class="events rv" id="eventsWrap"><div class="events-track" id="eventsTrack">
+<!-- EVENT (pinned horizontal gallery) -->
+<section id="event" class="sec-dark event-pin">
+  <div class="event-sticky">
+    <div class="in"><div class="head rv"><h2 class="h2">이벤트, <span class="hl">순간들</span></h2>
+    <p class="lede">단순한 간식이 아니라, 매 분기 새로운 이야기를 만듭니다. 다음 시즌은 카카오페이와 함께 기획합니다.</p></div></div>
+    <div class="events" id="eventsWrap"><div class="events-track" id="eventsTrack">
       <div class="cell"><span class="q">25 Q1</span><h3>구정 한과</h3><p>전통 한과·유과 큐레이션, 새해 인사 카드 동봉</p></div>
       <div class="cell"><span class="q">25 Q2</span><h3>추억의 불량식품</h3><p>쫀드기·아폴로·짱구, 추억 오브제 20종</p></div>
       <div class="cell"><span class="q">25 Q3</span><h3>저칼로리 간식</h3><p>그릭요거트·프로틴바, 200kcal 이하 라인업</p></div>
@@ -478,15 +491,15 @@
   else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});}
   var prog=document.getElementById('prog');
   // 이벤트 카드: 스크롤 내릴수록 오른쪽으로 흐르는 수평 팬 (개인페이지 스크롤-연동 참고)
-  var wrap=document.getElementById('eventsWrap'), track=document.getElementById('eventsTrack'), ticking=false;
+  var wrap=document.getElementById('eventsWrap'), track=document.getElementById('eventsTrack'), pin=document.getElementById('event'), ticking=false;
   var wsPhoto=document.getElementById('wsPhoto');
   var deskMotion=!RM&&matchMedia('(min-width:761px)').matches;
-  var panOn=wrap&&track&&deskMotion;
+  var panOn=wrap&&track&&pin&&deskMotion;
   function frame(){ ticking=false;
     if(panOn){ var overflow=Math.max(0,track.scrollWidth-wrap.clientWidth);
-      var r=wrap.getBoundingClientRect(), vh=innerHeight||1;
-      var p=Math.max(0,Math.min(1,(vh-r.top)/(vh+r.height)));
-      track.style.transform='translateX('+(-overflow*(1-p)).toFixed(1)+'px)'; }
+      var pr=pin.getBoundingClientRect(), span=pin.offsetHeight-(innerHeight||1);
+      var p=Math.max(0,Math.min(1,(-pr.top)/(span||1)));
+      track.style.transform='translateX('+(-overflow*p).toFixed(1)+'px)'; }
     if(wsPhoto&&deskMotion){ var pr=wsPhoto.getBoundingClientRect(), vh2=innerHeight||1;
       var q=(vh2-pr.top)/(vh2+pr.height); // 0..1 through view
       var shift=(q-0.5)*36; // gentle parallax
