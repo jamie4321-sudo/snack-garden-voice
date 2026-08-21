@@ -122,12 +122,6 @@
     .event-pin .event-sticky .in{margin-bottom:32px}
     .event-pin .events{padding:0 clamp(20px,5vw,44px)}
   }
-  /* 장면 스냅: 섹션마다 끊어서 멈춤 */
-  @media (min-width:761px) and (prefers-reduced-motion:no-preference){
-    html{scroll-snap-type:y proximity}
-    section,header.hero{scroll-snap-align:start}
-    section.event-pin{scroll-snap-align:start}
-  }
 
   /* realtime */
   .demo{display:grid;grid-template-columns:1fr 340px;gap:clamp(28px,5vw,56px);align-items:center;margin-top:4px}
