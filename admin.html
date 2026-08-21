@@ -199,6 +199,19 @@
   .tag.wip{background:rgba(240,180,41,.14);color:var(--amber)}
   .tag.new{background:rgba(198,255,46,.14);color:var(--accent)}
   .tag.don{background:rgba(74,222,128,.14);color:var(--green)}
+  /* 실시간 소비 순위 TOP5 */
+  .rank{display:flex;flex-direction:column;gap:10px;margin-top:2px}
+  .rk{display:flex;align-items:center;gap:12px}
+  .rk .rn{width:20px;text-align:center;font-size:13px;font-weight:900;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .rk.top .rn{color:var(--accent)}
+  .rk .nm{width:104px;font-size:13.5px;font-weight:800;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rk.top .nm{color:var(--ink)}
+  .rk .rbar{flex:1;height:10px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .rk .rbar span{display:block;height:100%;background:linear-gradient(90deg,#4d5a26,#33381f);border-radius:999px}
+  .rk.top .rbar span{background:linear-gradient(90deg,#a6e024,var(--accent))}
+  .rk .rc{width:40px;text-align:right;font-size:13px;font-weight:900;color:var(--ink-2)}
+  .rk.top .rc{color:var(--accent)}
+  @media (max-width:520px){.rk .nm{width:84px}}
 
   /* ── 새 보이스 알림 토스트 ── */
   .toasts{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;flex-direction:column;
@@ -338,9 +351,21 @@
         <div class="ph" style="margin-top:20px">설비 이슈</div>
         <div class="iss">
           <div class="iss-row"><span class="tag wip">확인중</span><span class="num">14F</span> 냉장고 온도 이상</div>
-          <div class="iss-row"><span class="tag new">접수</span><span class="num">10F</span> 자판기 결제 오류</div>
-          <div class="iss-row"><span class="tag don">완료</span><span class="num">11F</span> 정수기 필터 교체</div>
+          <div class="iss-row"><span class="tag new">접수</span><span class="num">12F</span> 쇼케이스 조명 점검</div>
+          <div class="iss-row"><span class="tag don">완료</span><span class="num">10F</span> 자판기 결제 오류</div>
         </div>
+      </div>
+    </div>
+
+    <!-- 실시간 소비 순위 TOP5 -->
+    <div class="panel" style="margin-top:12px">
+      <div class="ph">실시간 소비 순위 <span class="ph-note">TOP 5 · 오늘</span></div>
+      <div class="rank">
+        <div class="rk top"><span class="rn">1</span><span class="nm">제로 콜라</span><span class="rbar"><span style="width:100%"></span></span><span class="rc num">42</span></div>
+        <div class="rk"><span class="rn">2</span><span class="nm">바나나 우유</span><span class="rbar"><span style="width:88%"></span></span><span class="rc num">37</span></div>
+        <div class="rk"><span class="rn">3</span><span class="nm">꼬북칩</span><span class="rbar"><span style="width:79%"></span></span><span class="rc num">33</span></div>
+        <div class="rk"><span class="rn">4</span><span class="nm">아메리카노</span><span class="rbar"><span style="width:67%"></span></span><span class="rc num">28</span></div>
+        <div class="rk"><span class="rn">5</span><span class="nm">초코파이</span><span class="rbar"><span style="width:57%"></span></span><span class="rc num">24</span></div>
       </div>
     </div>
     <div class="foot">데모 운영 대시보드 · 실제 데이터 연동 시 매입·재고·예산·설비 이슈가 실시간 반영됩니다 <span class="demo">DEMO</span></div>
