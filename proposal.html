@@ -384,13 +384,13 @@
           <div><h3>QR을 스캔하면 접수 화면이 열립니다</h3><p>모바일 카메라로 스캔하거나, 오른쪽 화면에서 바로 체험하세요.</p></div>
         </div>
         <div class="acts">
-          <a class="btn btn-yellow btn-sm" href="./" target="_blank" rel="noopener">접수 화면 새 탭에서 열기</a>
+          <a class="btn btn-yellow btn-sm" href="./" data-voice target="_blank" rel="noopener">접수 화면 새 탭에서 열기</a>
           <a class="btn btn-ghost btn-sm" href="admin.html" target="_blank" rel="noopener">관리자 (KEY 1234)</a>
         </div>
       </div>
       <div class="phone rv d1">
         <div class="scr">
-          <iframe src="./" title="크루 보이스 접수 데모" loading="lazy"></iframe>
+          <iframe src="about:blank" data-voice title="크루 보이스 접수 데모" loading="lazy"></iframe>
           <span class="cap">실제 화면 · 직접 작성해보세요</span>
         </div>
       </div>
@@ -540,6 +540,9 @@
 <footer>© 2026 Linkage Lab Inc. · Linkagelab Confidential</footer>
 
 <script>
+  // 접수 화면 경로: Cloudflare·Vercel은 '/'가 제안서로 이동하므로 /voice, 그 외(GitHub Pages·로컬)는 ./
+  (function(){var h=location.hostname,v=/\.(workers\.dev|pages\.dev|vercel\.app)$/.test(h)?'/voice':'./';
+    document.querySelectorAll('[data-voice]').forEach(function(el){el.tagName==='IFRAME'?el.src=v:el.setAttribute('href',v);});})();
   var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!RM){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
     document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)});}
