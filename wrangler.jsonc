@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers (정적 사이트) 배포 설정
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "kakaopay-snack",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  }
+}
