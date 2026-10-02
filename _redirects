@@ -1,0 +1,5 @@
+# Cloudflare Pages 전용 (GitHub Pages·Vercel에서는 무시됨)
+# 첫 화면 → 제안서
+/        /proposal     302
+# 크루 보이스 접수 폼
+/voice   /   200
